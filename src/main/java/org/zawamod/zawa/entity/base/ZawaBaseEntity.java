@@ -2,15 +2,22 @@ package org.zawamod.zawa.entity.base;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
@@ -94,6 +101,33 @@ public abstract class ZawaBaseEntity extends TameableEntity {
             ZawaBaseEntity zawaBaseEntity = (ZawaBaseEntity) otherAnimal;
             if (zawaBaseEntity.getGender() == this.getGender()) return false;
             return zawaBaseEntity.isTamed() && super.canMateWith(otherAnimal);
+        }
+    }
+
+    @Override
+    public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
+        ItemStack stack = player.getHeldItem(hand);
+        if (this.world.isRemote) {
+            boolean flag = this.isOwner(player) || this.isTamed() || isBreedingItem(stack) && !this.isTamed();
+            return flag ? ActionResultType.CONSUME : ActionResultType.PASS;
+
+        } else {
+            if (!this.isTamed() && isBreedingItem(stack)) {
+                if (!player.abilities.isCreativeMode)
+                    stack.shrink(1);
+                if (this.rand.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
+                    this.setTamedBy(player);
+                    this.navigator.clearPath();
+                    this.setAttackTarget(null);
+                    this.world.setEntityState(this, (byte)7);
+                } else {
+                    this.world.setEntityState(this, (byte)6);
+                }
+
+                return ActionResultType.SUCCESS;
+            }
+
+            return super.func_230254_b_(player, hand);
         }
     }
 }

@@ -3,5 +3,10 @@
   "entity.zawa.koala": "Koala",
 
   "__comment": "Item Names",
-  "item.zawa.koala_spawn_egg": "Koala Spawn Egg"
+  "item.zawa.koala_spawn_egg": "Koala Spawn Egg",
+  "item.zawa.herbivore_kibble": "Herbivore Kibble",
+  "item.zawa.carnivore_kibble": "Carnivore Kibble",
+  "item.zawa.omnivore_kibble": "Omnivore Kibble",
+  "item.zawa.piscivore_kibble": "Piscivore Kibble",
+  "item.zawa.insectivore_kibble": "Insectivore Kibble"
 }

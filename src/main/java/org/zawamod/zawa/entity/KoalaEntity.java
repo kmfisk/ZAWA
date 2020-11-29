@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import org.zawamod.zawa.entity.base.ZawaBaseEntity;
 import org.zawamod.zawa.init.ModEntities;
+import org.zawamod.zawa.init.ModItems;
 
 import javax.annotation.Nullable;
 
@@ -33,7 +34,7 @@ public class KoalaEntity extends ZawaBaseEntity {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return false;
+        return stack.getItem() == ModItems.HERBIVORE_KIBBLE.get();
     }
 
     @Nullable
