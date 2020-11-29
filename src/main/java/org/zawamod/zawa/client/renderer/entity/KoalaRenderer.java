@@ -35,9 +35,9 @@ public class KoalaRenderer extends MobRenderer<KoalaEntity, KoalaModel> {
     }
 
     @Override
-    protected void preRenderCallback(KoalaEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
-        super.preRenderCallback(entitylivingbaseIn, matrixStackIn, partialTickTime);
-        if (entitylivingbaseIn.isChild())
+    protected void preRenderCallback(KoalaEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
+        super.preRenderCallback(entity, matrixStackIn, partialTickTime);
+        if (entity.isChild())
             matrixStackIn.translate(0, -0.05, 0);
     }
 

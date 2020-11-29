@@ -17,7 +17,7 @@ import org.zawamod.zawa.item.CustomSpawnEggItem;
 
 public class ModEntities {
     public static final DeferredRegister<EntityType<?>> REGISTER = DeferredRegister.create(ForgeRegistries.ENTITIES, ZawaMod.MOD_ID);
-    public static final EntityType<KoalaEntity> KOALA = register("koala", KoalaEntity::new, EntityClassification.CREATURE, 0.5F, 0.5F);
+    public static final EntityType<KoalaEntity> KOALA = register("koala", KoalaEntity::new, EntityClassification.CREATURE, 0.7F, 0.7F);
 
     private static <T extends Entity> EntityType<T> register(String name, EntityType.IFactory<T> factory, EntityClassification classification, float width, float height) {
         final Item.Properties properties = new Item.Properties().group(ItemGroup.MISC);

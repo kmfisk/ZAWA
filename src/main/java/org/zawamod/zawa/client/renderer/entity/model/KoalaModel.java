@@ -1,11 +1,11 @@
 package org.zawamod.zawa.client.renderer.entity.model;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.client.renderer.entity.model.SegmentedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.math.MathHelper;
 import org.zawamod.zawa.entity.KoalaEntity;
 
-public class KoalaModel extends SegmentedModel<KoalaEntity> {
+public class KoalaModel extends ZawaBaseModel<KoalaEntity> {
     public ModelRenderer body;
     public ModelRenderer belly;
     public ModelRenderer neck;
@@ -173,13 +173,62 @@ public class KoalaModel extends SegmentedModel<KoalaEntity> {
     }
 
     @Override
-    public void setRotationAngles(KoalaEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
+    public void setRotationAngles(KoalaEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        this.neck.rotateAngleX = headPitch * ((float) Math.PI / 180F) / 2F - 0.13F;
+        this.head.rotateAngleX = headPitch * ((float) Math.PI / 180F) / 2F + 0.24F;
+        this.neck.rotateAngleY = netHeadYaw * ((float) Math.PI / 180F) / 2F;
+        this.head.rotateAngleY = netHeadYaw * ((float) Math.PI / 180F) / 2F;
+        super.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
     }
 
     @Override
-    public void setLivingAnimations(KoalaEntity entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
-        super.setLivingAnimations(entityIn, limbSwing, limbSwingAmount, partialTick);
+    public void setIdleAnimations(KoalaEntity entity, float limbSwing, float limbSwingAmount) {
+        this.neck.rotateAngleX = MathHelper.cos((limbSwing * 0.1F) + (float) Math.PI) * (0.1F) * limbSwingAmount * 0.5F;
+    }
+
+    @Override
+    public void setMovingAnimations(KoalaEntity entity, float limbSwing, float limbSwingAmount) {
+        float speed = 8.0f;
+        float degree = 2.0f;
+        if (entity.isInWater()) {
+            limbSwing = (float)entity.ticksExisted;
+            limbSwingAmount = 0.3F;
+            speed = 2.0F;
+        }
+        if (entity.isChild()) {
+            this.neck.rotateAngleX = MathHelper.cos((limbSwing * speed * 0.3F) + (float) Math.PI) * (degree * 0.05F) * limbSwingAmount * 0.5F + -0.14F;
+            this.arm1.rotateAngleX = MathHelper.cos((limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * 0.9F) * limbSwingAmount * 0.5F + 0.06F;
+            this.forearm1.rotateAngleX = MathHelper.cos(2.0F + (limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * 1.0F) * limbSwingAmount * 0.5F + -0.2F;
+            this.hand1.rotateAngleX = MathHelper.cos(5.0F + (limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * -1.5F) * limbSwingAmount * 0.5F + 0.06F;
+            this.arm2.rotateAngleX = MathHelper.cos((limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * -0.9F) * limbSwingAmount * 0.5F + 0.06F;
+            this.forearm2.rotateAngleX = MathHelper.cos(2.0F + (limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * -1.0F) * limbSwingAmount * 0.5F + -0.2F;
+            this.hand2.rotateAngleX = MathHelper.cos(5.0F + (limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * 1.5F) * limbSwingAmount * 0.5F + 0.06F;
+            this.thight1.rotateAngleX = MathHelper.cos(2.0F + (limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * -1.5F) * limbSwingAmount * 0.5F + 0.1F;
+            this.leg1.rotateAngleX = MathHelper.cos((limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * -0.8F) * limbSwingAmount * 0.5F + 0.2F;
+            this.thight2.rotateAngleX = MathHelper.cos(2.0F + (limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * 1.5F) * limbSwingAmount * 0.5F + 0.1F;
+            this.leg2.rotateAngleX = MathHelper.cos((limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * 0.8F) * limbSwingAmount * 0.5F + 0.2F;
+            this.body.rotationPointY = MathHelper.cos((limbSwing * speed * 0.3F) + (float) Math.PI) * (degree * 0.01F) * limbSwingAmount * 0.5F + 19.2F;
+        } else {
+            this.neck.rotateAngleX = MathHelper.cos((limbSwing * speed * 0.3F) + (float) Math.PI) * (degree * 0.05F) * limbSwingAmount * 0.5F + -0.14F;
+            this.arm1.rotateAngleX = MathHelper.cos((limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * 0.9F) * limbSwingAmount * 0.5F + 0.06F;
+            this.forearm1.rotateAngleX = MathHelper.cos(2.0F + (limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * 1.5F) * limbSwingAmount * 0.5F + -0.1F;
+            this.hand1.rotateAngleX = MathHelper.cos(5.0F + (limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * -1.5F) * limbSwingAmount * 0.5F + 0.06F;
+            this.arm2.rotateAngleX = MathHelper.cos((limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * -0.9F) * limbSwingAmount * 0.5F + 0.06F;
+            this.forearm2.rotateAngleX = MathHelper.cos(2.0F + (limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * -1.5F) * limbSwingAmount * 0.5F + -0.1F;
+            this.hand2.rotateAngleX = MathHelper.cos(5.0F + (limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * 1.5F) * limbSwingAmount * 0.5F + 0.06F;
+            this.thight1.rotateAngleX = MathHelper.cos(2.0F + (limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * -1.5F) * limbSwingAmount * 0.5F + 0.1F;
+            this.leg1.rotateAngleX = MathHelper.cos((limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * -1.3F) * limbSwingAmount * 0.5F + 0.05F;
+            this.foot1.rotateAngleX = MathHelper.cos((limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * 2.0F) * limbSwingAmount * 0.5F;
+            this.thight2.rotateAngleX = MathHelper.cos(2.0F + (limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * 1.5F) * limbSwingAmount * 0.5F + 0.1F;
+            this.leg2.rotateAngleX = MathHelper.cos((limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * 0.0F) * limbSwingAmount * 0.5F + 0.05F;
+            this.foot2.rotateAngleX = MathHelper.cos((limbSwing * speed * 0.15F) + (float) Math.PI) * (degree * -2.0F) * limbSwingAmount * 0.5F;
+            this.body.rotationPointY = MathHelper.cos((limbSwing * speed * 0.3F) + (float) Math.PI) * (degree * 0.01F) * limbSwingAmount * 0.5F + 14.5F;
+        }
+    }
+
+    @Override
+    public void setSleepAnimations(KoalaEntity entity, float limbSwing, float limbSwingAmount) {
+
     }
 
     /**

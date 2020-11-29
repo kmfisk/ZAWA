@@ -18,12 +18,12 @@ public class KoalaEntity extends ZawaBaseEntity {
     }
 
     public static AttributeModifierMap.MutableAttribute registerKoalaAttributes() {
-        return LivingEntity.registerAttributes().createMutableAttribute(Attributes.FOLLOW_RANGE, 16).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.12F).createMutableAttribute(Attributes.MAX_HEALTH, 10.0F).createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0F);
+        return LivingEntity.registerAttributes().createMutableAttribute(Attributes.FOLLOW_RANGE, 16).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.10F).createMutableAttribute(Attributes.MAX_HEALTH, 10.0F).createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0F);
     }
 
     @Override
     protected void registerGoals() {
-        //super.registerGoals();
+        super.registerGoals();
     }
 
     @Override
