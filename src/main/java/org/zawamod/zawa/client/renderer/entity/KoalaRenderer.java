@@ -5,27 +5,27 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
-import org.zawamod.zawa.ZawaMod;
+import org.zawamod.zawa.Zawa;
 import org.zawamod.zawa.client.renderer.entity.model.KoalaModel;
 import org.zawamod.zawa.entity.KoalaEntity;
 
 public class KoalaRenderer extends MobRenderer<KoalaEntity, KoalaModel> {
 //    public static final List<Tuple<ResourceLocation, ResourceLocation>> TEXTURES = new ArrayList<>();
     public static final ResourceLocation[] TEXTURES = new ResourceLocation[] {
-        new ResourceLocation(ZawaMod.MOD_ID, "textures/entity/koala/koala_1.png"),
-        new ResourceLocation(ZawaMod.MOD_ID, "textures/entity/koala/koala_2.png"),
-        new ResourceLocation(ZawaMod.MOD_ID, "textures/entity/koala/koala_3.png")
+        new ResourceLocation(Zawa.MOD_ID, "textures/entity/koala/koala_1.png"),
+        new ResourceLocation(Zawa.MOD_ID, "textures/entity/koala/koala_2.png"),
+        new ResourceLocation(Zawa.MOD_ID, "textures/entity/koala/koala_3.png")
     };
-    public static final ResourceLocation BLINK = new ResourceLocation(ZawaMod.MOD_ID, "textures/entity/koala/koala_blink.png");
-    public static final ResourceLocation BABY_TEXTURE = new ResourceLocation(ZawaMod.MOD_ID, "textures/entity/koala/koala_baby.png");
-    public static final ResourceLocation BABY_BLINK = new ResourceLocation(ZawaMod.MOD_ID, "textures/entity/koala/koala_blink_baby.png");
+    public static final ResourceLocation BLINK = new ResourceLocation(Zawa.MOD_ID, "textures/entity/koala/koala_blink.png");
+    public static final ResourceLocation BABY_TEXTURE = new ResourceLocation(Zawa.MOD_ID, "textures/entity/koala/koala_baby.png");
+    public static final ResourceLocation BABY_BLINK = new ResourceLocation(Zawa.MOD_ID, "textures/entity/koala/koala_blink_baby.png");
     private final KoalaModel adultModel;
     private final KoalaModel babyModel;
 
     public KoalaRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new KoalaModel(), 0.5F);
+        super(renderManagerIn, new KoalaModel.Adult(), 0.5F);
         adultModel = entityModel;
-        babyModel = new KoalaModel.KoalaBabyModel();
+        babyModel = new KoalaModel.Child();
     }
 
     @Override
@@ -51,8 +51,8 @@ public class KoalaRenderer extends MobRenderer<KoalaEntity, KoalaModel> {
         for (int i = 1; i <= 3; ++i) {
             TEXTURES.add(
                     new Tuple<>(
-                            new ResourceLocation(ZawaMod.MOD_ID, "textures/entity/koala/koala_" + i + ".png"),
-                            new ResourceLocation(ZawaMod.MOD_ID, "textures/entity/koala/koala_blink_" + i + ".png")
+                            new ResourceLocation(Zawa.MOD_ID, "textures/entity/koala/koala_" + i + ".png"),
+                            new ResourceLocation(Zawa.MOD_ID, "textures/entity/koala/koala_blink_" + i + ".png")
                     )
             );
         }
