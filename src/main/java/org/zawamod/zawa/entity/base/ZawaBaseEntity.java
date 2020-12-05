@@ -2,22 +2,18 @@ package org.zawamod.zawa.entity.base;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
@@ -53,7 +49,7 @@ public abstract class ZawaBaseEntity extends TameableEntity {
     @Override
     public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
         spawnDataIn = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        this.setGender(rand.nextBoolean());
+        this.setMale(rand.nextBoolean());
         this.setVariant(rand.nextInt(this.maxVariants()));
         return spawnDataIn;
     }
@@ -68,29 +64,30 @@ public abstract class ZawaBaseEntity extends TameableEntity {
         this.dataManager.set(VARIANT, variant);
     }
 
-    public boolean getGender() {
-        return this.dataManager.get(GENDER);
+    public Gender getGender() {
+        return this.dataManager.get(GENDER) ? Gender.MALE : Gender.FEMALE;
     }
 
-    /**
-     * @param gender, true = male, false = female
-     */
-    public void setGender(boolean gender) {
-        this.dataManager.set(GENDER, gender);
+    public void setGender(Gender gender) {
+        setMale(gender == Gender.MALE);
+    }
+
+    public void setMale(boolean isMale) {
+        this.dataManager.set(GENDER, isMale);
     }
 
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
         compound.putInt("Variant", this.getVariant());
-        compound.putBoolean("Gender", this.getGender());
+        compound.putBoolean("Gender", this.getGender().toBool());
     }
 
     @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
         this.setVariant(compound.getInt("Variant"));
-        this.setGender(compound.getBoolean("Gender"));
+        this.setMale(compound.getBoolean("Gender"));
     }
 
     @Override
@@ -128,6 +125,15 @@ public abstract class ZawaBaseEntity extends TameableEntity {
             }
 
             return super.func_230254_b_(player, hand);
+        }
+    }
+
+    public enum Gender {
+        FEMALE,
+        MALE;
+
+        public boolean toBool() {
+            return this == MALE;
         }
     }
 }
