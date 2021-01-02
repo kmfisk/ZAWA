@@ -8,5 +8,26 @@
   "item.zawa.carnivore_kibble": "Carnivore Kibble",
   "item.zawa.omnivore_kibble": "Omnivore Kibble",
   "item.zawa.piscivore_kibble": "Piscivore Kibble",
-  "item.zawa.insectivore_kibble": "Insectivore Kibble"
+  "item.zawa.insectivore_kibble": "Insectivore Kibble",
+
+  "__comment": "Block Names",
+  "block.zawa.elephant_plush": "Elephant Plush",
+  "block.zawa.flamingo_plush": "Flamingo Plush",
+  "block.zawa.giraffe_plush": "Giraffe Plush",
+  "block.zawa.gorilla_plush": "Gorilla Plush",
+  "block.zawa.grizzly_plush": "Grizzly Plush",
+  "block.zawa.kangaroo_plush": "Kangaroo Plush",
+  "block.zawa.koala_plush": "Koala Plush",
+  "block.zawa.lion_plush": "Lion Plush",
+  "block.zawa.macaw_plush": "Macaw Plush",
+  "block.zawa.mandrill_plush": "Mandrill Plush",
+  "block.zawa.monkey_plush": "Monkey Plush",
+  "block.zawa.moose_plush": "Moose Plush",
+  "block.zawa.okapi_plush": "Okapi Plush",
+  "block.zawa.panda_plush": "Panda Plush",
+  "block.zawa.penguin_plush": "Penguin Plush",
+  "block.zawa.red_panda_plush": "Red Panda Plush",
+  "block.zawa.rhino_plush": "Rhino Plush",
+  "block.zawa.tiger_plush": "Tiger Plush",
+  "block.zawa.zebra_plush": "Zebra Plush"
 }

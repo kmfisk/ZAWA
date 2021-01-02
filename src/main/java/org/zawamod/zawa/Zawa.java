@@ -1,5 +1,7 @@
 package org.zawamod.zawa;
 
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -8,6 +10,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.zawamod.zawa.init.ZawaBlocks;
 import org.zawamod.zawa.init.ZawaEntities;
 import org.zawamod.zawa.init.ZawaItems;
 import org.zawamod.zawa.resources.EntityTypeDataManager;
@@ -17,6 +20,12 @@ public class Zawa {
     public static final String MOD_ID = "zawa";
     public static final EntityTypeDataManager DATA_MANAGER = new EntityTypeDataManager();
     private static final Logger LOGGER = LogManager.getLogger();
+    public static final ItemGroup GROUP = new ItemGroup("zawa") {
+        @Override
+        public ItemStack createIcon() {
+            return new ItemStack(ZawaBlocks.ELEPHANT_PLUSH.get());
+        }
+    };
 
     public Zawa() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -26,6 +35,7 @@ public class Zawa {
 
         ZawaEntities.REGISTER.register(bus);
         ZawaItems.REGISTER.register(bus);
+        ZawaBlocks.REGISTER.register(bus);
     }
 
     private void registerDatapackListeners(AddReloadListenerEvent event) {
