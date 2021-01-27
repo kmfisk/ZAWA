@@ -6,9 +6,11 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.zawamod.zawa.Zawa;
 import org.zawamod.zawa.block.PlushBlock;
+import org.zawamod.zawa.block.RopeFenceBlock;
 
 public class ZawaBlocks {
     public static final DeferredRegister<Block> REGISTER = DeferredRegister.create(ForgeRegistries.BLOCKS, Zawa.MOD_ID);
+    public static final RegistryObject<Block> ROPE_FENCE = REGISTER.register("rope_fence", RopeFenceBlock::new);
     public static final RegistryObject<Block> ELEPHANT_PLUSH = REGISTER.register("elephant_plush", PlushBlock::new);
     public static final RegistryObject<Block> FLAMINGO_PLUSH = REGISTER.register("flamingo_plush", PlushBlock::new);
     public static final RegistryObject<Block> GIRAFFE_PLUSH = REGISTER.register("giraffe_plush", PlushBlock::new);

@@ -2,7 +2,7 @@ package org.zawamod.zawa.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
+import net.minecraft.block.DirectionalBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItemUseContext;
@@ -17,7 +17,7 @@ import net.minecraft.world.IBlockReader;
 import javax.annotation.Nullable;
 
 public class PlushBlock extends Block {
-    public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+    public static final DirectionProperty FACING = DirectionalBlock.FACING;
     protected static final VoxelShape SHAPE = Block.makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 8.0D, 13.0D);
 
     public PlushBlock() {
@@ -33,7 +33,7 @@ public class PlushBlock extends Block {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().rotateY());
+        return this.getDefaultState().with(FACING, context.getNearestLookingDirection().getOpposite());
     }
 
     @Override

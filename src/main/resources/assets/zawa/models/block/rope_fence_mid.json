@@ -1,0 +1,34 @@
+{
+  "textures": {
+    "0": "zawa:blocks/rope_fence",
+    "particle": "zawa:blocks/rope_fence"
+  },
+  "elements": [
+    {
+      "name": "mid",
+      "from": [0, 2, 7],
+      "to": [16, 3, 9],
+      "faces": {
+        "north": {"uv": [14, 0, 14.5, 8], "rotation": 270, "texture": "#0"},
+        "east": {"uv": [8, 0, 16, 0.5], "texture": "#0"},
+        "south": {"uv": [15.5, 0, 16, 8], "rotation": 90, "texture": "#0"},
+        "west": {"uv": [8, 0, 16, 0.5], "texture": "#0"},
+        "up": {"uv": [15, 0, 16, 8], "rotation": 90, "texture": "#0"},
+        "down": {"uv": [12.5, 0, 13.5, 8], "rotation": 90, "texture": "#0"}
+      }
+    },
+    {
+      "name": "mid",
+      "from": [0, 3, 8],
+      "to": [16, 16, 8],
+      "faces": {
+        "north": {"uv": [0, 0, 8, 6.5], "texture": "#0"},
+        "east": {"uv": [0, 0, 0, 13], "texture": "#0"},
+        "south": {"uv": [0, 0, 8, 6.5], "texture": "#0"},
+        "west": {"uv": [0, 0, 0, 13], "texture": "#0"},
+        "up": {"uv": [0, 0, 16, 0], "texture": "#0"},
+        "down": {"uv": [0, 0, 16, 0], "texture": "#0"}
+      }
+    }
+  ]
+}

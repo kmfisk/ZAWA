@@ -16,6 +16,7 @@ public class ZawaItems {
     public static final RegistryObject<Item> INSECTIVORE_KIBBLE = REGISTER.register("insectivore_kibble", () -> new Item(new Item.Properties()));
 
     // Block Items
+    public static final RegistryObject<Item> ROPE_FENCE = REGISTER.register("rope_fence", () -> new BlockItem(ZawaBlocks.ROPE_FENCE.get(), new Item.Properties().group(Zawa.GROUP)));
     public static final RegistryObject<Item> ELEPHANT_PLUSH = REGISTER.register("elephant_plush", () -> new BlockItem(ZawaBlocks.ELEPHANT_PLUSH.get(), new Item.Properties().group(Zawa.GROUP)));
     public static final RegistryObject<Item> FLAMINGO_PLUSH = REGISTER.register("flamingo_plush", () -> new BlockItem(ZawaBlocks.FLAMINGO_PLUSH.get(), new Item.Properties().group(Zawa.GROUP)));
     public static final RegistryObject<Item> GIRAFFE_PLUSH = REGISTER.register("giraffe_plush", () -> new BlockItem(ZawaBlocks.GIRAFFE_PLUSH.get(), new Item.Properties().group(Zawa.GROUP)));
