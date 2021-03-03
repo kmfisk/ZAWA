@@ -8,8 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import org.zawamod.zawa.entity.base.ZawaBaseEntity;
-import org.zawamod.zawa.init.ZawaEntities;
-import org.zawamod.zawa.init.ZawaItems;
+import org.zawamod.zawa.item.ZawaItems;
 
 import javax.annotation.Nullable;
 
