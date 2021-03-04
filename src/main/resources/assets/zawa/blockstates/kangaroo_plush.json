@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "zawa:block/kangaroo_plush"
+      "model": "zawa:block/plushies/kangaroo_plush"
     }
   }
 }

@@ -1,7 +1,8 @@
 {
   "variants": {
     "": {
-      "model": "zawa:block/gorilla_plush"
+      "model": "zawa:block/plushies/gorilla_plush",
+      "y": 180
     }
   }
 }

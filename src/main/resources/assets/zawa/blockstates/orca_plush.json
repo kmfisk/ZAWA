@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "": {
+      "model": "zawa:block/plushies/orca_plush",
+      "y": 180
+    }
+  }
+}

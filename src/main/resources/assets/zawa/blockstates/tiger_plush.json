@@ -1,7 +1,8 @@
 {
   "variants": {
     "": {
-      "model": "zawa:block/tiger_plush"
+      "model": "zawa:block/plushies/tiger_plush",
+      "y": 180
     }
   }
 }

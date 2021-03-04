@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "zawa:block/giraffe_plush"
+      "model": "zawa:block/plushies/giraffe_plush"
     }
   }
 }

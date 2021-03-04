@@ -21,7 +21,7 @@ public class Zawa {
     public static final String MOD_ID = "zawa";
     public static final EntityTypeDataManager DATA_MANAGER = new EntityTypeDataManager();
     private static final Logger LOGGER = LogManager.getLogger();
-    public static final ItemGroup GROUP = new ItemGroup("zawa") {
+    public static final ItemGroup GROUP = new ItemGroup(MOD_ID + ".tab") {
         @Override
         public ItemStack createIcon() {
             return new ItemStack(ZawaBlocks.ELEPHANT_PLUSH.get());

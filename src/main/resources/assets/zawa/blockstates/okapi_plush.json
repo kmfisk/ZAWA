@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "zawa:block/okapi_plush"
+      "model": "zawa:block/plushies/okapi_plush"
     }
   }
 }

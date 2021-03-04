@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "zawa:block/mandrill_plush"
+      "model": "zawa:block/plushies/mandrill_plush"
     }
   }
 }
