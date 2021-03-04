@@ -12,8 +12,6 @@ import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.world.MobSpawnInfoBuilder;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
@@ -22,6 +20,8 @@ import net.minecraftforge.fml.common.thread.EffectiveSide;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.zawamod.zawa.Zawa;
+import org.zawamod.zawa.client.renderer.entity.CommonHippopotamusRenderer;
+import org.zawamod.zawa.client.renderer.entity.GrevysZebraRenderer;
 import org.zawamod.zawa.client.renderer.entity.KoalaRenderer;
 import org.zawamod.zawa.item.ZawaItems;
 
@@ -39,6 +39,16 @@ public class ZawaEntities {
             .renderer(() -> KoalaRenderer::new)
             .size(0.7f, 0.7f)
             .build("koala");
+    public static final RegistryObject<EntityType<CommonHippopotamusEntity>> COMMON_HIPPOPOTAMUS = new Builder<>(CommonHippopotamusEntity::new, EntityClassification.CREATURE)
+            .attributes(CommonHippopotamusEntity::registerHippoAttributes)
+            .renderer(() -> CommonHippopotamusRenderer::new)
+            .size(1.5F, 1.5F)
+            .build("common_hippopotamus");
+    public static final RegistryObject<EntityType<GrevysZebraEntity>> GREVYS_ZEBRA = new Builder<>(GrevysZebraEntity::new, EntityClassification.CREATURE)
+            .attributes(GrevysZebraEntity::registerZebraAttributes)
+            .renderer(() -> GrevysZebraRenderer::new)
+            .size(1.2F, 2.0F)
+            .build("grevys_zebra");
 
     public static void registerAttributes() {
         for (Tuple<RegistryObject<EntityType<? extends LivingEntity>>, Supplier<AttributeModifierMap.MutableAttribute>> attribute : ATTRIBUTES) {

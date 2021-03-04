@@ -1,7 +1,6 @@
 package org.zawamod.zawa.client.renderer.entity;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -11,11 +10,11 @@ import org.zawamod.zawa.client.renderer.entity.model.KoalaModel;
 import org.zawamod.zawa.entity.KoalaEntity;
 
 public class KoalaRenderer extends MobRenderer<KoalaEntity, KoalaModel> {
-//    public static final List<Tuple<ResourceLocation, ResourceLocation>> TEXTURES = new ArrayList<>();
-    public static final ResourceLocation[] TEXTURES = new ResourceLocation[] {
-        new ResourceLocation(Zawa.MOD_ID, "textures/entity/koala/koala_1.png"),
-        new ResourceLocation(Zawa.MOD_ID, "textures/entity/koala/koala_2.png"),
-        new ResourceLocation(Zawa.MOD_ID, "textures/entity/koala/koala_3.png")
+    //    public static final List<Tuple<ResourceLocation, ResourceLocation>> TEXTURES = new ArrayList<>();
+    public static final ResourceLocation[] TEXTURES = new ResourceLocation[]{
+            new ResourceLocation(Zawa.MOD_ID, "textures/entity/koala/koala_1.png"),
+            new ResourceLocation(Zawa.MOD_ID, "textures/entity/koala/koala_2.png"),
+            new ResourceLocation(Zawa.MOD_ID, "textures/entity/koala/koala_3.png")
     };
     public static final ResourceLocation BLINK = new ResourceLocation(Zawa.MOD_ID, "textures/entity/koala/koala_blink.png");
     public static final ResourceLocation BABY_TEXTURE = new ResourceLocation(Zawa.MOD_ID, "textures/entity/koala/koala_baby.png");

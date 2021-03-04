@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "zawa:items/omnivore_kibble"
+    "layer0": "zawa:items/shellfish_kibble"
   }
 }

@@ -49,7 +49,7 @@ public abstract class KoalaModel extends SegmentedModel<KoalaEntity> {
         this.neck.rotateAngleY = netHeadYaw * ((float) Math.PI / 180F) / 2F;
         this.head.rotateAngleY = netHeadYaw * ((float) Math.PI / 180F) / 2F;
         if (limbSwingAmount <= 0.05f) {
-            this.neck.rotateAngleX = MathHelper.cos((limbSwing * 0.1F) + (float) Math.PI) * (0.1F) * limbSwingAmount * 0.5F;
+            this.neck.rotateAngleX = MathHelper.cos(entity.ticksExisted) * 0.5f; // todo ???? this doesn't work
         }
     }
 
@@ -202,7 +202,7 @@ public abstract class KoalaModel extends SegmentedModel<KoalaEntity> {
             float degree = 2.0f;
 
             if (entity.isInWater()) {
-                limbSwing = (float)entity.ticksExisted;
+                limbSwing = (float) entity.ticksExisted;
                 limbSwingAmount = 0.3F;
                 speed = 2.0F;
             }
@@ -367,7 +367,7 @@ public abstract class KoalaModel extends SegmentedModel<KoalaEntity> {
             float degree = 2.0f;
 
             if (entity.isInWater()) {
-                limbSwing = (float)entity.ticksExisted;
+                limbSwing = (float) entity.ticksExisted;
                 limbSwingAmount = 0.3F;
                 speed = 2.0F;
             }

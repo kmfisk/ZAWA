@@ -31,8 +31,8 @@
 				"east": {"uv": [8, 3, 11, 10], "texture": "#1"},
 				"south": {"uv": [6, 9, 8, 16], "texture": "#1"},
 				"west": {"uv": [0, 0, 3, 7], "texture": "#1"},
-				"up": {"uv": [0, 0, 2, 3], "rotation": 180, "texture": "#missing"},
-				"down": {"uv": [0, 0, 2, 3], "rotation": 180, "texture": "#missing"}
+				"up": {"uv": [0, 0, 2, 3], "rotation": 180, "texture": "#particle"},
+				"down": {"uv": [0, 0, 2, 3], "rotation": 180, "texture": "#particle"}
 			}
 		},
 		{
