@@ -47,7 +47,8 @@ public class ZawaEntities {
     public static final RegistryObject<EntityType<GrevysZebraEntity>> GREVYS_ZEBRA = new Builder<>(GrevysZebraEntity::new, EntityClassification.CREATURE)
             .attributes(GrevysZebraEntity::registerZebraAttributes)
             .renderer(() -> GrevysZebraRenderer::new)
-            .size(1.2F, 2.0F)
+            .size(2.0F, 2.0F)
+//            .spawn(new SpawnInfo(something, 3, 4, 10))
             .build("grevys_zebra");
 
     public static void registerAttributes() {

@@ -29,6 +29,11 @@ public class KoalaEntity extends BaseClimbingEntity {
     }
 
     @Override
+    public Weight weightClass() {
+        return Weight.SMALL;
+    }
+
+    @Override
     public boolean isBreedingItem(ItemStack stack) {
         return stack.getItem() == ZawaItems.HERBIVORE_KIBBLE.get();
     }

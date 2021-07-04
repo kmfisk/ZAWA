@@ -9,12 +9,12 @@ import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import org.zawamod.zawa.entity.base.BaseLandEntity;
+import org.zawamod.zawa.entity.base.BaseHerdingEntity;
 import org.zawamod.zawa.item.ZawaItems;
 
 import javax.annotation.Nullable;
 
-public class GrevysZebraEntity extends BaseLandEntity {
+public class GrevysZebraEntity extends BaseHerdingEntity {
     public GrevysZebraEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
     }
@@ -26,6 +26,11 @@ public class GrevysZebraEntity extends BaseLandEntity {
     @Override
     public int maxVariants() {
         return 3;
+    }
+
+    @Override
+    public Weight weightClass() {
+        return Weight.LARGE;
     }
 
     @Override

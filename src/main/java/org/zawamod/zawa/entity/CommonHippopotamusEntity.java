@@ -29,6 +29,11 @@ public class CommonHippopotamusEntity extends BaseSemiAquaticEntity {
     }
 
     @Override
+    public Weight weightClass() {
+        return Weight.GIANT;
+    }
+
+    @Override
     public boolean isBreedingItem(ItemStack stack) {
         return stack.getItem() == ZawaItems.HERBIVORE_KIBBLE.get();
     }

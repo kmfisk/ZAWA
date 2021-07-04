@@ -3,7 +3,10 @@ package org.zawamod.zawa.entity.base;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.BreedGoal;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.LookRandomlyGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,8 +36,6 @@ public abstract class ZawaBaseEntity extends TameableEntity {
         super.registerGoals();
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
-//        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.25D));
-//        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
     }
@@ -55,6 +56,8 @@ public abstract class ZawaBaseEntity extends TameableEntity {
     }
 
     public abstract int maxVariants();
+
+    public abstract Weight weightClass();
 
     public int getVariant() {
         return this.dataManager.get(VARIANT);
@@ -116,9 +119,9 @@ public abstract class ZawaBaseEntity extends TameableEntity {
                     this.setTamedBy(player);
                     this.navigator.clearPath();
                     this.setAttackTarget(null);
-                    this.world.setEntityState(this, (byte)7);
+                    this.world.setEntityState(this, (byte) 7);
                 } else {
-                    this.world.setEntityState(this, (byte)6);
+                    this.world.setEntityState(this, (byte) 6);
                 }
 
                 return ActionResultType.SUCCESS;
@@ -135,5 +138,13 @@ public abstract class ZawaBaseEntity extends TameableEntity {
         public boolean toBool() {
             return this == MALE;
         }
+    }
+
+    public enum Weight {
+        TINY,
+        SMALL,
+        MEDIUM,
+        LARGE,
+        GIANT
     }
 }
