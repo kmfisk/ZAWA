@@ -12,6 +12,8 @@ import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.world.MobSpawnInfoBuilder;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
@@ -27,6 +29,8 @@ import org.zawamod.zawa.item.ZawaItems;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class ZawaEntities {
@@ -34,26 +38,29 @@ public class ZawaEntities {
     private static final List<Tuple<RegistryObject<EntityType<?>>, Supplier<IRenderFactory<?>>>> RENDERERS = new ArrayList<>();
     private static final List<Tuple<RegistryObject<EntityType<?>>, List<SpawnInfo>>> SPAWNS = new ArrayList<>();
     public static final DeferredRegister<EntityType<?>> REGISTRAR = DeferredRegister.create(ForgeRegistries.ENTITIES, Zawa.MOD_ID);
+
     public static final RegistryObject<EntityType<KoalaEntity>> KOALA = new Builder<>(KoalaEntity::new, EntityClassification.CREATURE)
             .attributes(KoalaEntity::registerKoalaAttributes)
             .renderer(() -> KoalaRenderer::new)
             .size(0.7f, 0.7f)
-            .build("koala");
+            .build(REGISTRAR, "koala");
+
     public static final RegistryObject<EntityType<CommonHippopotamusEntity>> COMMON_HIPPOPOTAMUS = new Builder<>(CommonHippopotamusEntity::new, EntityClassification.CREATURE)
             .attributes(CommonHippopotamusEntity::registerHippoAttributes)
             .renderer(() -> CommonHippopotamusRenderer::new)
             .size(1.5F, 1.5F)
-            .build("common_hippopotamus");
+            .build(REGISTRAR, "common_hippopotamus");
+
     public static final RegistryObject<EntityType<GrevysZebraEntity>> GREVYS_ZEBRA = new Builder<>(GrevysZebraEntity::new, EntityClassification.CREATURE)
             .attributes(GrevysZebraEntity::registerZebraAttributes)
             .renderer(() -> GrevysZebraRenderer::new)
             .size(2.0F, 2.0F)
 //            .spawn(new SpawnInfo(something, 3, 4, 10))
-            .build("grevys_zebra");
+            .build(REGISTRAR, "grevys_zebra");
 
-    public static void registerAttributes() {
+    public static void registerAttributes(BiConsumer<EntityType<? extends LivingEntity>, AttributeModifierMap.MutableAttribute> register) {
         for (Tuple<RegistryObject<EntityType<? extends LivingEntity>>, Supplier<AttributeModifierMap.MutableAttribute>> attribute : ATTRIBUTES) {
-            GlobalEntityTypeAttributes.put(attribute.getA().get(), attribute.getB().get().create());
+            register.accept(attribute.getA().get(), attribute.getB().get());
         }
         ATTRIBUTES.clear();
     }
@@ -70,7 +77,7 @@ public class ZawaEntities {
             EntityType<?> type = spawn.getA().get();
             for (SpawnInfo spawnInfo : spawn.getB()) {
                 if (spawnInfo.predicate.invoke(climate, category, depth, scale, treeCount)) {
-                    spawnBuilder.getSpawner(type.getClassification()).add(new MobSpawnInfo.Spawners(type, spawnInfo.weight, spawnInfo.groupMinimum, spawnInfo.groupMaximum));
+                    spawnBuilder.getSpawner(type.getCategory()).add(new MobSpawnInfo.Spawners(type, spawnInfo.weight, spawnInfo.groupMinimum, spawnInfo.groupMaximum));
                 }
             }
         }
@@ -89,6 +96,7 @@ public class ZawaEntities {
         private Supplier<IRenderFactory<? super T>> renderer;
         private float width, height;
         private final List<SpawnInfo> spawnInfos = new ArrayList<>();
+        private Consumer<EntityType.Builder<T>> builderConsumer;
 
         public Builder(EntityType.IFactory<T> factory, EntityClassification category) {
             this.factory = factory;
@@ -116,10 +124,17 @@ public class ZawaEntities {
             return this;
         }
 
-        public RegistryObject<EntityType<T>> build(String name) {
-            final Item.Properties spawnEggBuilder = new Item.Properties().group(ItemGroup.MISC);
-            EntityType<T> builtType = EntityType.Builder.create(factory, category).size(width, height).build(Zawa.MOD_ID + "." + name);
-            RegistryObject<EntityType<T>> type = REGISTRAR.register(name, () -> builtType);
+        public Builder<T> additional(Consumer<EntityType.Builder<T>> consumer) {
+            builderConsumer = consumer;
+            return this;
+        }
+
+        public RegistryObject<EntityType<T>> build(DeferredRegister<EntityType<?>> registrar, String name) {
+            final Item.Properties spawnEggBuilder = new Item.Properties().tab(ItemGroup.TAB_MISC);
+            final EntityType.Builder<T> entityBuilder = EntityType.Builder.of(factory, category).sized(width, height);
+            if (builderConsumer != null) builderConsumer.accept(entityBuilder);
+            final EntityType<T> builtType = entityBuilder.build(Zawa.MOD_ID + "." + name);
+            final RegistryObject<EntityType<T>> type = registrar.register(name, () -> builtType);
             if (attributes != null) {
                 ATTRIBUTES.add(new Tuple<>(cast(type), attributes));
             }

@@ -20,7 +20,7 @@ public class CommonHippopotamusEntity extends ZawaBaseEntity {
     }
 
     public static AttributeModifierMap.MutableAttribute registerHippoAttributes() {
-        return LivingEntity.registerAttributes().createMutableAttribute(Attributes.FOLLOW_RANGE, 16).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.10F).createMutableAttribute(Attributes.MAX_HEALTH, 80.0F).createMutableAttribute(Attributes.ATTACK_DAMAGE, 14.0F);
+        return createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.10F).add(Attributes.MAX_HEALTH, 80.0F).add(Attributes.ATTACK_DAMAGE, 14.0F);
     }
 
     @Override

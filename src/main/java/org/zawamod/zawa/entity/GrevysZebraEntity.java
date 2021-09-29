@@ -22,7 +22,7 @@ public class GrevysZebraEntity extends BaseHerdingEntity {
     }
 
     public static AttributeModifierMap.MutableAttribute registerZebraAttributes() {
-        return LivingEntity.registerAttributes().createMutableAttribute(Attributes.FOLLOW_RANGE, 16).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.2F).createMutableAttribute(Attributes.MAX_HEALTH, 42.0F).createMutableAttribute(Attributes.ATTACK_DAMAGE, 6.0F);
+        return createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.2F).add(Attributes.MAX_HEALTH, 42.0F).add(Attributes.ATTACK_DAMAGE, 6.0F);
     }
 
     @Override

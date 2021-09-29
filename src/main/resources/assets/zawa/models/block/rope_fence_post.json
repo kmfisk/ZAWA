@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "zawa:blocks/rope_fence",
-		"particle": "zawa:blocks/rope_fence"
+		"0": "zawa:block/rope_fence",
+		"particle": "zawa:block/rope_fence"
 	},
 	"elements": [
 		{

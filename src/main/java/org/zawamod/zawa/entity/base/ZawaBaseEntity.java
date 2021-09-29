@@ -57,8 +57,6 @@ public abstract class ZawaBaseEntity extends TameableEntity {
 
     public abstract int maxVariants();
 
-    public abstract Weight weightClass();
-
     public int getVariant() {
         return this.entityData.get(VARIANT);
     }
@@ -137,13 +135,5 @@ public abstract class ZawaBaseEntity extends TameableEntity {
         public boolean toBool() {
             return this == MALE;
         }
-    }
-
-    public enum Weight {
-        TINY,
-        SMALL,
-        MEDIUM,
-        LARGE,
-        GIANT
     }
 }

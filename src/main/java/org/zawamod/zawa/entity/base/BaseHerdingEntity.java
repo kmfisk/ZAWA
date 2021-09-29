@@ -103,14 +103,14 @@ public abstract class BaseHerdingEntity extends ZawaBaseEntity {
     }
 
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-        super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        if (spawnDataIn == null)
-            spawnDataIn = new BaseHerdingEntity.GroupData(this);
+    public ILivingEntityData finalizeSpawn(IServerWorld world, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData spawnData, @Nullable CompoundNBT dataTag) {
+        spawnData = super.finalizeSpawn(world, difficulty, reason, spawnData, dataTag);
+        if (spawnData == null)
+            spawnData = new BaseHerdingEntity.GroupData(this);
         else
-            this.startFollowing(((BaseHerdingEntity.GroupData) spawnDataIn).groupLeader);
+            this.startFollowing(((BaseHerdingEntity.GroupData) spawnData).groupLeader);
 
-        return spawnDataIn;
+        return spawnData;
     }
 
     public static class GroupData implements ILivingEntityData {
