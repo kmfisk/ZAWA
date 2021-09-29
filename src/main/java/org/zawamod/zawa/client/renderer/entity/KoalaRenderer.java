@@ -24,26 +24,26 @@ public class KoalaRenderer extends MobRenderer<KoalaEntity, KoalaModel> {
 
     public KoalaRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new KoalaModel.Adult(), 0.5F);
-        adultModel = entityModel;
+        adultModel = model;
         babyModel = new KoalaModel.Child();
     }
 
     @Override
     public void render(KoalaEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-        entityModel = entityIn.isChild() ? babyModel : adultModel;
+        model = entityIn.isBaby() ? babyModel : adultModel;
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
     @Override
-    protected void preRenderCallback(KoalaEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
-        super.preRenderCallback(entity, matrixStackIn, partialTickTime);
-        if (entity.isChild())
+    protected void scale(KoalaEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
+        super.scale(entity, matrixStackIn, partialTickTime);
+        if (entity.isBaby())
             matrixStackIn.translate(0, -0.05, 0);
     }
 
     @Override
-    public ResourceLocation getEntityTexture(KoalaEntity entity) {
-        if (entity.isChild()) return BABY_TEXTURE;
+    public ResourceLocation getTextureLocation(KoalaEntity entity) {
+        if (entity.isBaby()) return BABY_TEXTURE;
         return TEXTURES[entity.getVariant()];
     }
 

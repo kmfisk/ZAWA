@@ -5,6 +5,6 @@ import org.zawamod.zawa.Zawa;
 
 public class MotorBoatItem extends Item {
     public MotorBoatItem() {
-        super(new Item.Properties().group(Zawa.GROUP));
+        super(new Item.Properties().tab(Zawa.GROUP));
     }
 }

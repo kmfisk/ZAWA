@@ -23,26 +23,26 @@ public class CommonHippopotamusRenderer extends MobRenderer<CommonHippopotamusEn
 
     public CommonHippopotamusRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new CommonHippopotamusModel.Adult(), 1.0F);
-        adultModel = entityModel;
+        adultModel = model;
         babyModel = new CommonHippopotamusModel.Child();
     }
 
     @Override
     public void render(CommonHippopotamusEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-        entityModel = entityIn.isChild() ? babyModel : adultModel;
+        model = entityIn.isBaby() ? babyModel : adultModel;
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
     @Override
-    protected void preRenderCallback(CommonHippopotamusEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
-        super.preRenderCallback(entitylivingbaseIn, matrixStackIn, partialTickTime);
-        if (entitylivingbaseIn.isChild())
+    protected void scale(CommonHippopotamusEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+        super.scale(entitylivingbaseIn, matrixStackIn, partialTickTime);
+        if (entitylivingbaseIn.isBaby())
             matrixStackIn.translate(0, 0, 0);
     }
 
     @Override
-    public ResourceLocation getEntityTexture(CommonHippopotamusEntity entity) {
-        if (entity.isChild()) return BABY_TEXTURE;
+    public ResourceLocation getTextureLocation(CommonHippopotamusEntity entity) {
+        if (entity.isBaby()) return BABY_TEXTURE;
         return TEXTURES[entity.getVariant()];
     }
 }

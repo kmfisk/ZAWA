@@ -14,7 +14,7 @@ public class MotorBoatRenderer extends EntityRenderer<MotorBoatEntity> {
     }
 
     @Override
-    public ResourceLocation getEntityTexture(MotorBoatEntity entity) {
+    public ResourceLocation getTextureLocation(MotorBoatEntity entity) {
         return null;
     }
 }

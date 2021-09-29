@@ -18,11 +18,11 @@ import javax.annotation.Nullable;
 
 public class PlushBlock extends Block {
     public static final DirectionProperty FACING = DirectionalBlock.FACING;
-    protected static final VoxelShape SHAPE = Block.makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 8.0D, 13.0D);
+    protected static final VoxelShape SHAPE = box(3.0D, 0.0D, 3.0D, 13.0D, 8.0D, 13.0D);
 
     public PlushBlock() {
-        super(Properties.create(Material.WOOL).sound(SoundType.CLOTH).hardnessAndResistance(0.8F));
-        this.setDefaultState(this.getStateContainer().getBaseState().with(FACING, Direction.NORTH));
+        super(Properties.of(Material.WOOL).sound(SoundType.WOOL));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH));
     }
 
     @Override
@@ -33,11 +33,11 @@ public class PlushBlock extends Block {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(FACING, context.getNearestLookingDirection().getOpposite());
+        return super.getStateForPlacement(context).setValue(FACING, context.getNearestLookingDirection().getOpposite());
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
 }

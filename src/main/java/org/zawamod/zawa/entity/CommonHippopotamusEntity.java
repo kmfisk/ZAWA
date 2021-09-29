@@ -9,12 +9,12 @@ import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import org.zawamod.zawa.entity.base.BaseSemiAquaticEntity;
+import org.zawamod.zawa.entity.base.ZawaBaseEntity;
 import org.zawamod.zawa.item.ZawaItems;
 
 import javax.annotation.Nullable;
 
-public class CommonHippopotamusEntity extends BaseSemiAquaticEntity {
+public class CommonHippopotamusEntity extends ZawaBaseEntity {
     public CommonHippopotamusEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
     }
@@ -34,22 +34,22 @@ public class CommonHippopotamusEntity extends BaseSemiAquaticEntity {
     }
 
     @Override
-    public boolean isBreedingItem(ItemStack stack) {
+    public boolean isFood(ItemStack stack) {
         return stack.getItem() == ZawaItems.HERBIVORE_KIBBLE.get();
     }
 
     @Nullable
     @Override
-    public AgeableEntity func_241840_a(ServerWorld world, AgeableEntity entity) {
+    public AgeableEntity getBreedOffspring(ServerWorld world, AgeableEntity entity) {
         CommonHippopotamusEntity hippoBaby = ZawaEntities.COMMON_HIPPOPOTAMUS.get().create(world);
         if (entity instanceof CommonHippopotamusEntity && hippoBaby != null) {
             CommonHippopotamusEntity parent = (CommonHippopotamusEntity) entity;
-            if (rand.nextInt(4) == 0) {
-                hippoBaby.setVariant(rand.nextInt(this.maxVariants()));
+            if (random.nextInt(4) == 0) {
+                hippoBaby.setVariant(random.nextInt(this.maxVariants()));
             } else {
-                hippoBaby.setVariant(rand.nextBoolean() ? getVariant() : parent.getVariant());
+                hippoBaby.setVariant(random.nextBoolean() ? getVariant() : parent.getVariant());
             }
-            hippoBaby.setMale(rand.nextBoolean());
+            hippoBaby.setMale(random.nextBoolean());
         }
         return hippoBaby;
     }

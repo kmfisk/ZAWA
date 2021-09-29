@@ -24,11 +24,11 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public abstract class ZawaBaseEntity extends TameableEntity {
-    public static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(ZawaBaseEntity.class, DataSerializers.VARINT);
-    public static final DataParameter<Boolean> GENDER = EntityDataManager.createKey(ZawaBaseEntity.class, DataSerializers.BOOLEAN);
+    public static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(ZawaBaseEntity.class, DataSerializers.INT);
+    public static final DataParameter<Boolean> GENDER = EntityDataManager.defineId(ZawaBaseEntity.class, DataSerializers.BOOLEAN);
 
-    public ZawaBaseEntity(EntityType<? extends TameableEntity> type, World worldIn) {
-        super(type, worldIn);
+    public ZawaBaseEntity(EntityType<? extends TameableEntity> type, World world) {
+        super(type, world);
     }
 
     @Override
@@ -41,17 +41,17 @@ public abstract class ZawaBaseEntity extends TameableEntity {
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(VARIANT, 0);
-        this.dataManager.register(GENDER, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(VARIANT, 0);
+        this.entityData.define(GENDER, false);
     }
 
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-        spawnDataIn = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        this.setMale(rand.nextBoolean());
-        this.setVariant(rand.nextInt(this.maxVariants()));
+    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        this.setMale(random.nextBoolean());
+        this.setVariant(random.nextInt(this.maxVariants()));
         return spawnDataIn;
     }
 
@@ -60,15 +60,15 @@ public abstract class ZawaBaseEntity extends TameableEntity {
     public abstract Weight weightClass();
 
     public int getVariant() {
-        return this.dataManager.get(VARIANT);
+        return this.entityData.get(VARIANT);
     }
 
     public void setVariant(int variant) {
-        this.dataManager.set(VARIANT, variant);
+        this.entityData.set(VARIANT, variant);
     }
 
     public Gender getGender() {
-        return this.dataManager.get(GENDER) ? Gender.MALE : Gender.FEMALE;
+        return this.entityData.get(GENDER) ? Gender.MALE : Gender.FEMALE;
     }
 
     public void setGender(Gender gender) {
@@ -76,58 +76,57 @@ public abstract class ZawaBaseEntity extends TameableEntity {
     }
 
     public void setMale(boolean isMale) {
-        this.dataManager.set(GENDER, isMale);
+        this.entityData.set(GENDER, isMale);
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundNBT compound) {
+        super.addAdditionalSaveData(compound);
         compound.putInt("Variant", this.getVariant());
         compound.putBoolean("Gender", this.getGender().toBool());
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
+    public void readAdditionalSaveData(CompoundNBT compound) {
+        super.readAdditionalSaveData(compound);
         this.setVariant(compound.getInt("Variant"));
         this.setMale(compound.getBoolean("Gender"));
     }
 
     @Override
-    public boolean canMateWith(AnimalEntity otherAnimal) {
-        if (!this.isTamed()) return false;
+    public boolean canMate(AnimalEntity otherAnimal) {
+        if (!this.isTame()) return false;
         else if (!(otherAnimal instanceof ZawaBaseEntity)) return false;
         else {
             ZawaBaseEntity zawaBaseEntity = (ZawaBaseEntity) otherAnimal;
             if (zawaBaseEntity.getGender() == this.getGender()) return false;
-            return zawaBaseEntity.isTamed() && super.canMateWith(otherAnimal);
+            return zawaBaseEntity.isTame() && super.canMate(otherAnimal);
         }
     }
 
     @Override
-    public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
-        ItemStack stack = player.getHeldItem(hand);
-        if (this.world.isRemote) {
-            boolean flag = this.isOwner(player) || this.isTamed() || isBreedingItem(stack) && !this.isTamed();
+    public ActionResultType mobInteract(PlayerEntity player, Hand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (this.level.isClientSide) {
+            boolean flag = this.isOwnedBy(player) || this.isTame() || isFood(stack) && !this.isTame();
             return flag ? ActionResultType.CONSUME : ActionResultType.PASS;
 
         } else {
-            if (!this.isTamed() && isBreedingItem(stack)) {
-                if (!player.abilities.isCreativeMode)
+            if (!this.isTame() && isFood(stack)) {
+                if (!player.abilities.instabuild)
                     stack.shrink(1);
-                if (this.rand.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
-                    this.setTamedBy(player);
-                    this.navigator.clearPath();
-                    this.setAttackTarget(null);
-                    this.world.setEntityState(this, (byte) 7);
-                } else {
-                    this.world.setEntityState(this, (byte) 6);
-                }
+                if (this.random.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
+                    this.tame(player);
+                    this.navigation.stop();
+                    this.setTarget(null);
+                    this.level.broadcastEntityEvent(this, (byte) 7);
+                } else
+                    this.level.broadcastEntityEvent(this, (byte) 6);
 
                 return ActionResultType.SUCCESS;
             }
 
-            return super.func_230254_b_(player, hand);
+            return super.mobInteract(player, hand);
         }
     }
 

@@ -23,7 +23,7 @@ public class Zawa {
     private static final Logger LOGGER = LogManager.getLogger();
     public static final ItemGroup GROUP = new ItemGroup(MOD_ID + ".tab") {
         @Override
-        public ItemStack createIcon() {
+        public ItemStack makeIcon() {
             return new ItemStack(ZawaBlocks.ELEPHANT_PLUSH.get());
         }
     };

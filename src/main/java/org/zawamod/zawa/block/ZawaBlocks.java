@@ -43,7 +43,7 @@ public class ZawaBlocks {
 
     private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> block) {
         RegistryObject<T> registryObject = REGISTRAR.register(name, block);
-        ZawaItems.REGISTRAR.register(name, () -> new BlockItem(registryObject.get(), new Item.Properties().group(Zawa.GROUP)));
+        ZawaItems.REGISTRAR.register(name, () -> new BlockItem(registryObject.get(), new Item.Properties().tab(Zawa.GROUP)));
         return registryObject;
     }
 }

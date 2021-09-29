@@ -9,12 +9,12 @@ import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import org.zawamod.zawa.entity.base.BaseClimbingEntity;
+import org.zawamod.zawa.entity.base.ZawaBaseEntity;
 import org.zawamod.zawa.item.ZawaItems;
 
 import javax.annotation.Nullable;
 
-public class KoalaEntity extends BaseClimbingEntity {
+public class KoalaEntity extends ZawaBaseEntity {
     public KoalaEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
     }
@@ -34,22 +34,22 @@ public class KoalaEntity extends BaseClimbingEntity {
     }
 
     @Override
-    public boolean isBreedingItem(ItemStack stack) {
+    public boolean isFood(ItemStack stack) {
         return stack.getItem() == ZawaItems.HERBIVORE_KIBBLE.get();
     }
 
     @Nullable
     @Override
-    public KoalaEntity func_241840_a(ServerWorld world, AgeableEntity entity) {
+    public KoalaEntity getBreedOffspring(ServerWorld world, AgeableEntity entity) {
         KoalaEntity koalaBaby = ZawaEntities.KOALA.get().create(world);
         if (entity instanceof KoalaEntity && koalaBaby != null) {
             KoalaEntity parent = (KoalaEntity) entity;
-            if (rand.nextInt(4) == 0) {
-                koalaBaby.setVariant(rand.nextInt(this.maxVariants()));
+            if (random.nextInt(4) == 0) {
+                koalaBaby.setVariant(random.nextInt(this.maxVariants()));
             } else {
-                koalaBaby.setVariant(rand.nextBoolean() ? getVariant() : parent.getVariant());
+                koalaBaby.setVariant(random.nextBoolean() ? getVariant() : parent.getVariant());
             }
-            koalaBaby.setMale(rand.nextBoolean());
+            koalaBaby.setMale(random.nextBoolean());
         }
         return koalaBaby;
     }

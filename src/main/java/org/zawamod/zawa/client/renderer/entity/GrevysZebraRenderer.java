@@ -23,26 +23,26 @@ public class GrevysZebraRenderer extends MobRenderer<GrevysZebraEntity, GrevysZe
 
     public GrevysZebraRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new GrevysZebraModel.Adult(), 1.0F);
-        adultModel = entityModel;
+        adultModel = model;
         babyModel = new GrevysZebraModel.Child();
     }
 
     @Override
     public void render(GrevysZebraEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-        entityModel = entityIn.isChild() ? babyModel : adultModel;
+        model = entityIn.isBaby() ? babyModel : adultModel;
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
     @Override
-    protected void preRenderCallback(GrevysZebraEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
-        super.preRenderCallback(entitylivingbaseIn, matrixStackIn, partialTickTime);
-        if (entitylivingbaseIn.isChild())
+    protected void scale(GrevysZebraEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+        super.scale(entitylivingbaseIn, matrixStackIn, partialTickTime);
+        if (entitylivingbaseIn.isBaby())
             matrixStackIn.translate(0, 0, 0);
     }
 
     @Override
-    public ResourceLocation getEntityTexture(GrevysZebraEntity entity) {
-        if (entity.isChild()) return BABY_TEXTURE;
+    public ResourceLocation getTextureLocation(GrevysZebraEntity entity) {
+        if (entity.isBaby()) return BABY_TEXTURE;
         return TEXTURES[entity.getVariant()];
     }
 }

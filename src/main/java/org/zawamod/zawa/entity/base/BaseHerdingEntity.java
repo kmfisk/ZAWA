@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public abstract class BaseHerdingEntity extends BaseLandEntity {
+public abstract class BaseHerdingEntity extends ZawaBaseEntity {
     private BaseHerdingEntity groupLeader;
     private int groupSize = 1;
 
@@ -34,71 +34,72 @@ public abstract class BaseHerdingEntity extends BaseLandEntity {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new GroupPanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, PlayerEntity.class, 12.0F, 1.6D, 1.4D, EntityPredicates.NOT_SPECTATING::test));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, PlayerEntity.class, 12.0F, 1.6D, 1.4D, EntityPredicates.NO_SPECTATORS::test));
         this.goalSelector.addGoal(6, new FollowHerdGoal(this));
     }
 
-    public int getMaxSpawnedInChunk() {
+    @Override
+    public int getMaxSpawnClusterSize() {
         return this.getMaxGroupSize();
     }
 
     public int getMaxGroupSize() {
-        return super.getMaxSpawnedInChunk();
+        return super.getMaxSpawnClusterSize();
     }
 
     public boolean hasGroupLeader() {
         return this.groupLeader != null && this.groupLeader.isAlive();
     }
 
-    public BaseHerdingEntity setGroupLeader(BaseHerdingEntity groupLeaderIn) {
+    public BaseHerdingEntity startFollowing(BaseHerdingEntity groupLeaderIn) {
         this.groupLeader = groupLeaderIn;
-        groupLeaderIn.increaseGroupSize();
+        groupLeaderIn.addFollower();
         return groupLeaderIn;
     }
 
-    public void leaveGroup() {
-        this.groupLeader.decreaseGroupSize();
+    public void stopFollowing() {
+        this.groupLeader.removeFollower();
         this.groupLeader = null;
     }
 
-    private void increaseGroupSize() {
+    private void addFollower() {
         ++this.groupSize;
     }
 
-    private void decreaseGroupSize() {
+    private void removeFollower() {
         --this.groupSize;
     }
 
-    public boolean canGroupGrow() {
-        return this.isGroupLeader() && this.groupSize < this.getMaxGroupSize();
+    public boolean canBeFollowed() {
+        return this.hasFollowers() && this.groupSize < this.getMaxGroupSize();
     }
 
     public void tick() {
         super.tick();
-        if (this.isGroupLeader() && this.world.rand.nextInt(200) == 1) {
-            List<BaseHerdingEntity> list = this.world.getEntitiesWithinAABB(this.getClass(), this.getBoundingBox().grow(8.0D, 8.0D, 8.0D));
+        if (this.hasFollowers() && this.random.nextInt(200) == 1) {
+            List<BaseHerdingEntity> list = this.level.getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D));
             if (list.size() <= 1)
                 this.groupSize = 1;
         }
     }
 
-    public boolean isGroupLeader() {
+    public boolean hasFollowers() {
         return this.groupSize > 1;
     }
 
-    public boolean inRangeOfGroupLeader() {
-        return this.getDistanceSq(this.groupLeader) <= 121.0D;
+    public boolean inRangeOfLeader() {
+        return this.distanceToSqr(this.groupLeader) <= 121.0D;
     }
 
-    public void moveToGroupLeader() {
+    public void pathToLeader() {
         if (this.hasGroupLeader()) {
-            Path path = this.getNavigator().getPathToEntity(this.groupLeader, 6);
-            if (path != null) this.getNavigator().setPath(path, 1.0D);
+            Path path = this.getNavigation().createPath(this.groupLeader, 6);
+            if (path != null) this.getNavigation().moveTo(path, 1.0D);
         }
     }
 
-    public void setAllGroupLeader(Stream<BaseHerdingEntity> herdingEntity) {
-        herdingEntity.limit((this.getMaxGroupSize() - this.groupSize)).filter((entity) -> entity != this).forEach((entity) -> entity.setGroupLeader(this));
+    public void addFollowers(Stream<BaseHerdingEntity> herdingEntity) {
+        herdingEntity.limit((this.getMaxGroupSize() - this.groupSize)).filter((entity) -> entity != this).forEach((entity) -> entity.startFollowing(this));
     }
 
     @Override
@@ -107,7 +108,7 @@ public abstract class BaseHerdingEntity extends BaseLandEntity {
         if (spawnDataIn == null)
             spawnDataIn = new BaseHerdingEntity.GroupData(this);
         else
-            this.setGroupLeader(((BaseHerdingEntity.GroupData) spawnDataIn).groupLeader);
+            this.startFollowing(((BaseHerdingEntity.GroupData) spawnDataIn).groupLeader);
 
         return spawnDataIn;
     }
@@ -127,16 +128,16 @@ public abstract class BaseHerdingEntity extends BaseLandEntity {
 
         public FollowHerdGoal(BaseHerdingEntity taskOwner) {
             this.taskOwner = taskOwner;
-            this.cooldown = this.getNewCooldown(taskOwner);
+            this.cooldown = this.nextStartTick(taskOwner);
         }
 
-        protected int getNewCooldown(BaseHerdingEntity taskOwnerIn) {
-            return 200 + taskOwnerIn.getRNG().nextInt(200) % 20;
+        protected int nextStartTick(BaseHerdingEntity taskOwnerIn) {
+            return 200 + taskOwnerIn.getRandom().nextInt(200) % 20;
         }
 
         @Override
-        public boolean shouldExecute() {
-            if (this.taskOwner.isGroupLeader())
+        public boolean canUse() {
+            if (this.taskOwner.hasFollowers())
                 return false;
             else if (this.taskOwner.hasGroupLeader())
                 return true;
@@ -144,35 +145,35 @@ public abstract class BaseHerdingEntity extends BaseLandEntity {
                 --this.cooldown;
                 return false;
             } else {
-                this.cooldown = this.getNewCooldown(this.taskOwner);
-                Predicate<BaseHerdingEntity> predicate = (herdingEntity) -> herdingEntity.canGroupGrow() || !herdingEntity.hasGroupLeader();
-                List<BaseHerdingEntity> list = this.taskOwner.world.getEntitiesWithinAABB(this.taskOwner.getClass(), this.taskOwner.getBoundingBox().grow(8.0D, 8.0D, 8.0D), predicate);
-                BaseHerdingEntity baseHerdingEntity = list.stream().filter(BaseHerdingEntity::canGroupGrow).findAny().orElse(this.taskOwner);
-                baseHerdingEntity.setAllGroupLeader(list.stream().filter((herdingEntity) -> !herdingEntity.hasGroupLeader()));
+                this.cooldown = this.nextStartTick(this.taskOwner);
+                Predicate<BaseHerdingEntity> predicate = (herdingEntity) -> herdingEntity.canBeFollowed() || !herdingEntity.hasGroupLeader();
+                List<BaseHerdingEntity> list = this.taskOwner.level.getEntitiesOfClass(this.taskOwner.getClass(), this.taskOwner.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), predicate);
+                BaseHerdingEntity baseHerdingEntity = list.stream().filter(BaseHerdingEntity::canBeFollowed).findAny().orElse(this.taskOwner);
+                baseHerdingEntity.addFollowers(list.stream().filter((herdingEntity) -> !herdingEntity.hasGroupLeader()));
                 return this.taskOwner.hasGroupLeader();
             }
         }
 
         @Override
-        public boolean shouldContinueExecuting() {
-            return this.taskOwner.hasGroupLeader() && this.taskOwner.inRangeOfGroupLeader();
+        public boolean canContinueToUse() {
+            return this.taskOwner.hasGroupLeader() && this.taskOwner.inRangeOfLeader();
         }
 
         @Override
-        public void startExecuting() {
+        public void start() {
             this.navigateTimer = 0;
         }
 
         @Override
-        public void resetTask() {
-            this.taskOwner.leaveGroup();
+        public void stop() {
+            this.taskOwner.stopFollowing();
         }
 
         @Override
         public void tick() {
             if (--this.navigateTimer <= 0) {
                 this.navigateTimer = 10;
-                this.taskOwner.moveToGroupLeader();
+                this.taskOwner.pathToLeader();
             }
         }
     }
@@ -183,27 +184,27 @@ public abstract class BaseHerdingEntity extends BaseLandEntity {
         }
 
         @Override
-        public void startExecuting() {
-            super.startExecuting();
+        public void start() {
+            super.start();
             alertOthers();
         }
 
         @Override
         protected boolean findRandomPosition() {
-            Vector3d vector3d = RandomPositionGenerator.findRandomTarget(this.creature, 10, 4);
+            Vector3d vector3d = RandomPositionGenerator.getPos(this.mob, 10, 4);
             if (vector3d == null)
                 return false;
             else {
-                this.randPosX = vector3d.x;
-                this.randPosY = vector3d.y;
-                this.randPosZ = vector3d.z;
+                this.posX = vector3d.x;
+                this.posY = vector3d.y;
+                this.posZ = vector3d.z;
                 return true;
             }
         }
 
         protected void alertOthers() {
-            AxisAlignedBB axisalignedbb = AxisAlignedBB.fromVector(this.creature.getPositionVec()).grow(10.0D, 10.0D, 10.0D);
-            List<MobEntity> list = this.creature.world.getLoadedEntitiesWithinAABB(this.creature.getClass(), axisalignedbb);
+            AxisAlignedBB axisalignedbb = AxisAlignedBB.unitCubeFromLowerCorner(this.mob.position()).inflate(10.0D, 10.0D, 10.0D);
+            List<MobEntity> list = this.mob.level.getLoadedEntitiesOfClass(this.mob.getClass(), axisalignedbb);
             Iterator iterator = list.iterator();
 
             while (true) {
@@ -213,7 +214,7 @@ public abstract class BaseHerdingEntity extends BaseLandEntity {
 
                 mobentity = (MobEntity) iterator.next();
 
-                mobentity.getNavigator().tryMoveToXYZ(this.randPosX, this.randPosY, this.randPosZ, this.speed);
+                mobentity.getNavigation().moveTo(this.posX, this.posY, this.posZ, this.speedModifier);
             }
         }
     }
