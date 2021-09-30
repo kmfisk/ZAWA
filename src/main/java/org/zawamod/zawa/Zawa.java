@@ -24,7 +24,7 @@ public class Zawa {
     public static final ItemGroup GROUP = new ItemGroup(MOD_ID + ".tab") {
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(ZawaBlocks.ELEPHANT_PLUSH.get());
+            return new ItemStack(ZawaItems.CARNIVORE_KIBBLE.get());
         }
     };
 
