@@ -14,15 +14,15 @@ public class EntityStats {
     private final Set<Item> enrichmentItems;
     private final Set<Block> enrichmentBlocks;
     private final EntitySizeCategory size;
-    private final int maxVariants;
+    private final int variantCount;
 
-    public EntityStats(Object2IntMap<Item> diet, Item kibble, RangedInteger litterSize, Set<Item> enrichmentItems, Set<Block> enrichmentBlocks, EntitySizeCategory size, int maxVariants) {
+    public EntityStats(Object2IntMap<Item> diet, Item kibble, RangedInteger litterSize, Set<Item> enrichmentItems, Set<Block> enrichmentBlocks, EntitySizeCategory size, int variantCount) {
         this.diet = diet;
         this.kibble = kibble;
         this.litterSize = litterSize;
         this.enrichmentItems = enrichmentItems;
         this.enrichmentBlocks = enrichmentBlocks;
         this.size = size;
-        this.maxVariants = maxVariants;
+        this.variantCount = variantCount;
     }
 }

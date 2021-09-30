@@ -35,17 +35,17 @@ public class EntityDietManager extends JsonReloadListener {
         diets.clear();
         for (Map.Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
             try {
-                JsonObject json = JSONUtils.getJsonObject(entry.getValue(), "top element");
+                JsonObject json = JSONUtils.convertToJsonObject(entry.getValue(), "top element");
                 Object2IntMap<Item> items = new Object2IntOpenHashMap<>();
                 for (Map.Entry<String, JsonElement> element : json.entrySet()) {
                     if (element.getKey().startsWith("#")) {
                         ResourceLocation id = new ResourceLocation(element.getKey().substring(1));
-                        ITag<Item> tag = TagCollectionManager.getManager().getItemTags().get(id);
+                        ITag<Item> tag = TagCollectionManager.getInstance().getItems().getTag(id);
                         if (tag == null) {
                             throw new JsonSyntaxException("Unknown tag: " + id);
                         }
-                        int amount = JSONUtils.getInt(element.getValue(), element.getKey());
-                        for (Item item : tag.getAllElements()) {
+                        int amount = JSONUtils.convertToInt(element.getValue(), element.getKey());
+                        for (Item item : tag.getValues()) {
                             items.put(item, amount);
                         }
                     } else {
@@ -54,7 +54,7 @@ public class EntityDietManager extends JsonReloadListener {
                         if (item == null || item == Items.AIR) {
                             throw new JsonSyntaxException("Unknown item: " + id);
                         }
-                        items.put(item, JSONUtils.getInt(element.getValue(), element.getKey()));
+                        items.put(item, JSONUtils.convertToInt(element.getValue(), element.getKey()));
                     }
                 }
                 diets.put(entry.getKey(), items);

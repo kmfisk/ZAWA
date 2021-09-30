@@ -102,7 +102,7 @@ public class EntityStatsManager extends JsonReloadListener {
                     throw new JsonSyntaxException("Excepted size to be a String or Int, was " + JSONUtils.getType(sizeElement));
                 }
 
-                stats.put(type, new EntityStats(diet, kibble, litterSize, enrichmentItems, enrichmentBlocks, size, maxVariants));
+                stats.put(type, new EntityStats(diet, kibble, litterSize, enrichmentItems, enrichmentBlocks, size, JSONUtils.getAsInt(json, "variant_count")));
             } catch (Exception exception) {
                 LOGGER.error("Failed to load stats for entity '" + entry.getKey() + "'", exception);
             }
