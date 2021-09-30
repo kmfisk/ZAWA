@@ -1,0 +1,27 @@
+{
+  "diet": "zawa:frugivore",
+  "kibble": "zawa:herbivore_kibble",
+  "litter_size": {
+    "min": 1,
+    "max": 3
+  },
+  "enrichment": {
+    "items": [
+    ],
+    "blocks": [
+      "zawa:show_perch",
+      "zawa:tire_swing",
+      "zawa:tire_swing_horizontal",
+      "zawa:hay_browse",
+      "zawa:leaf_browse",
+      "zawa:sprinkler",
+      "zawa:puzzle_feeder",
+      "zawa:apple_ice_treat"
+    ],
+    "entities": [
+      "zawa:scented_ball"
+    ]
+  },
+  "size": "small",
+  "variant_count": 9
+}

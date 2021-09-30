@@ -1,0 +1,24 @@
+{
+  "diet": "zawa:eucalyptus",
+  "kibble": "zawa:herbivore_kibble",
+  "litter_size": 1,
+  "enrichment": {
+    "items": [
+    ],
+    "blocks": [
+      "zawa:rope",
+      "zawa:vine",
+      "zawa:tire_swing",
+      "zawa:tire_swing_horizontal",
+      "zawa:hay_browse",
+      "zawa:leaf_browse",
+      "zawa:apple_ice_treat",
+      "zawa:climbing_post"
+    ],
+    "entities": [
+      "zawa:scented_ball"
+    ]
+  },
+  "size": "small",
+  "variant_count": 3
+}

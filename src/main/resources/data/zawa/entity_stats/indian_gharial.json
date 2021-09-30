@@ -1,0 +1,22 @@
+{
+  "diet": "zawa:piscivore",
+  "kibble": "zawa:piscivore_kibble",
+  "litter_size": {
+    "min": 4,
+    "max": 5
+  },
+  "enrichment": {
+    "items": [
+    ],
+    "blocks": [
+      "zawa:heat_lamp",
+      "zawa:heat_rock",
+      "zawa:sprinkler",
+      "zawa:beef_ice_treat"
+    ],
+    "entities": [
+    ]
+  },
+  "size": "large",
+  "variant_count": 4
+}

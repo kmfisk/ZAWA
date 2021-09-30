@@ -38,11 +38,6 @@ public class GrevysZebraEntity extends BaseHerdingEntity {
     }
 
     @Override
-    public Weight weightClass() {
-        return Weight.LARGE;
-    }
-
-    @Override
     public boolean isFood(ItemStack stack) {
         return stack.getItem() == ZawaItems.HERBIVORE_KIBBLE.get();
     }

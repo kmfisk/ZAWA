@@ -29,11 +29,6 @@ public class KoalaEntity extends ZawaBaseEntity {
     }
 
     @Override
-    public Weight weightClass() {
-        return Weight.SMALL;
-    }
-
-    @Override
     public boolean isFood(ItemStack stack) {
         return stack.getItem() == ZawaItems.HERBIVORE_KIBBLE.get();
     }

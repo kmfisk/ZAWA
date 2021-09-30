@@ -1,0 +1,17 @@
+{
+  "diet": "zawa:piscivore",
+  "kibble": "zawa:piscivore_kibble",
+  "litter_size": 1,
+  "enrichment": {
+    "items": [
+    ],
+    "blocks": [
+      "zawa:sprinkler"
+    ],
+    "entities": [
+      "zawa:boomer_ball"
+    ]
+  },
+  "size": "giant",
+  "variant_count": 4
+}

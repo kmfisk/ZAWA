@@ -47,7 +47,7 @@ public class MotorBoatRenderer extends EntityRenderer<MotorBoatEntity> {
 
         matrixStackIn.scale(-1.0F, -1.0F, 1.0F);
         matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90.0F));
-        this.modelBoat.setRotationAngles(entityIn, partialTicks, 0.0F, -0.1F, 0.0F, 0.0F);
+        this.modelBoat.setupAnim(entityIn, partialTicks, 0.0F, -0.1F, 0.0F, 0.0F);
         IVertexBuilder ivertexbuilder = bufferIn.getBuffer(this.modelBoat.renderType(this.getTextureLocation(entityIn)));
         this.modelBoat.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
         if (!entityIn.isSwimming()) {

@@ -1,0 +1,19 @@
+{
+  "diet": "zawa:ruminant",
+  "kibble": "zawa:herbivore_kibble",
+  "litter_size": 1,
+  "enrichment": {
+    "items": [],
+    "blocks": [
+      "zawa:scratching_post",
+      "zawa:leaf_browse",
+      "zawa:hay_browse",
+      "zawa:sprinkler",
+      "zawa:salt_lick",
+      "zawa:apple_ice_treat"
+    ],
+    "entities": []
+  },
+  "size": "large",
+  "variant_count": 3
+}

@@ -2,7 +2,6 @@ package org.zawamod.zawa.entity;
 
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.passive.TameableEntity;
@@ -26,11 +25,6 @@ public class CommonHippopotamusEntity extends ZawaBaseEntity {
     @Override
     public int maxVariants() {
         return 3;
-    }
-
-    @Override
-    public Weight weightClass() {
-        return Weight.GIANT;
     }
 
     @Override
