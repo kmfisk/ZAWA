@@ -75,6 +75,8 @@ public class CommonHippopotamusModel extends SegmentedModel<CommonHippopotamusEn
 
     public static class Adult extends CommonHippopotamusModel {
         public Adult() {
+            this.texWidth = 128;
+            this.texHeight = 128;
             this.tooth1 = new ModelRenderer(this, 14, 0);
             this.tooth1.setPos(2.0F, 0.2F, -5.0F);
             this.tooth1.addBox(-0.5F, -3.0F, -0.5F, 1, 3, 1, 0.0F);
@@ -275,6 +277,8 @@ public class CommonHippopotamusModel extends SegmentedModel<CommonHippopotamusEn
 
     public static class Child extends CommonHippopotamusModel {
         public Child() {
+            this.texWidth = 96;
+            this.texHeight = 96;
             this.Foot1 = new ModelRenderer(this, 71, 31);
             this.Foot1.setPos(0.0F, 3.5F, 0.0F);
             this.Foot1.addBox(-2.0F, -1.0F, -2.0F, 4, 2, 3, 0.0F);

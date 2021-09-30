@@ -1,7 +1,6 @@
 package org.zawamod.zawa.client.renderer.entity.model;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.model.SegmentedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import org.zawamod.zawa.entity.item.MotorBoatEntity;
@@ -19,6 +18,8 @@ public class MotorBoatModel extends SegmentedModel<MotorBoatEntity> {
     private final ImmutableList<ModelRenderer> parts;
 
     public MotorBoatModel() {
+        this.texWidth = 128;
+        this.texHeight = 64;
         this.boatSides1 = new ModelRenderer(this, 0, 0);
         this.boatSides1.setPos(0.0F, 3.0F, 1.0F);
         this.boatSides1.addBox(-14.0F, -9.0F, -3.0F, 28, 16, 3, 0.0F);
@@ -60,7 +61,8 @@ public class MotorBoatModel extends SegmentedModel<MotorBoatEntity> {
     }
 
     @Override
-    public void setupAnim(MotorBoatEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) { }
+    public void setupAnim(MotorBoatEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    }
 
     @Override
     public ImmutableList<ModelRenderer> parts() {

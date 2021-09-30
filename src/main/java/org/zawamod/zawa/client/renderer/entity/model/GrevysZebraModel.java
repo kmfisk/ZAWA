@@ -69,6 +69,8 @@ public class GrevysZebraModel extends SegmentedModel<GrevysZebraEntity> {
 
     public static class Adult extends GrevysZebraModel {
         public Adult() {
+            this.texWidth = 96;
+            this.texHeight = 128;
             this.Snout = new ModelRenderer(this, 0, 99);
             this.Snout.setPos(0.0F, 1.9F, -3.0F);
             this.Snout.addBox(-2.5F, -4.0F, -5.0F, 5, 7, 6, 0.0F);
@@ -297,6 +299,8 @@ public class GrevysZebraModel extends SegmentedModel<GrevysZebraEntity> {
 
     public static class Child extends GrevysZebraModel {
         public Child() {
+            this.texWidth = 64;
+            this.texHeight = 64;
             this.FootLeft = new ModelRenderer(this, 39, 38);
             this.FootLeft.setPos(0.0F, 5.5F, -2.0F);
             this.FootLeft.addBox(-1.5F, 0.0F, -1.5F, 3, 2, 3, 0.0F);

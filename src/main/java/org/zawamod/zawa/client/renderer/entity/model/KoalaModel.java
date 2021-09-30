@@ -61,6 +61,8 @@ public abstract class KoalaModel extends SegmentedModel<KoalaEntity> {
 
     public static class Adult extends KoalaModel {
         public Adult() {
+            this.texWidth = 64;
+            this.texHeight = 48;
             this.arm2 = new ModelRenderer(this, 0, 25);
             this.arm2.mirror = true;
             this.arm2.setPos(-2.4F, 0.2F, 1.6F);
@@ -224,6 +226,8 @@ public abstract class KoalaModel extends SegmentedModel<KoalaEntity> {
 
     public static class Child extends KoalaModel {
         public Child() {
+            this.texWidth = 48;
+            this.texHeight = 24;
             this.leg1 = new ModelRenderer(this, 28, 19);
             this.leg1.setPos(-0.02F, 4.0F, -1.0F);
             this.leg1.addBox(-1.0F, 0.0F, 0.0F, 2, 2, 2, 0.0F);
