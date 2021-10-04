@@ -2,7 +2,6 @@ package org.zawamod.zawa.entity;
 
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.FollowParentGoal;
@@ -30,11 +29,6 @@ public class GrevysZebraEntity extends BaseHerdingEntity {
         super.registerGoals();
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.25D));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-    }
-
-    @Override
-    public int maxVariants() {
-        return 3;
     }
 
     @Override

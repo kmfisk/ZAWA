@@ -23,11 +23,6 @@ public class CommonHippopotamusEntity extends ZawaBaseEntity {
     }
 
     @Override
-    public int maxVariants() {
-        return 3;
-    }
-
-    @Override
     public boolean isFood(ItemStack stack) {
         return stack.getItem() == ZawaItems.HERBIVORE_KIBBLE.get();
     }

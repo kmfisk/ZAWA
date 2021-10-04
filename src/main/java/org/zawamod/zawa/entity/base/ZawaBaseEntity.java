@@ -17,9 +17,12 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.RangedInteger;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+import org.zawamod.zawa.resources.EntityStatsManager;
 
 import javax.annotation.Nullable;
 
@@ -55,7 +58,9 @@ public abstract class ZawaBaseEntity extends TameableEntity {
         return spawnDataIn;
     }
 
-    public abstract int maxVariants();
+    public final int maxVariants() {
+        return EntityStatsManager.INSTANCE.getStats(this).getVariantCount();
+    }
 
     public int getVariant() {
         return this.entityData.get(VARIANT);
@@ -103,28 +108,53 @@ public abstract class ZawaBaseEntity extends TameableEntity {
     }
 
     @Override
+    public void spawnChildFromBreeding(ServerWorld world, AnimalEntity entity) {
+        RangedInteger litterSize = EntityStatsManager.INSTANCE.getStats(this).getLitterSize();
+        for (int i = 0; i < litterSize.randomValue(random) + 1; i++)
+            super.spawnChildFromBreeding(world, entity);
+    }
+
+    @Override
+    public boolean isFood(ItemStack stack) {
+        return EntityStatsManager.INSTANCE.getStats(this).isFood(stack.getItem());
+    }
+
+    public boolean isKibble(ItemStack stack) {
+        return stack.getItem() == EntityStatsManager.INSTANCE.getStats(this).getKibble();
+    }
+
+    @Override
     public ActionResultType mobInteract(PlayerEntity player, Hand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (this.level.isClientSide) {
-            boolean flag = this.isOwnedBy(player) || this.isTame() || isFood(stack) && !this.isTame();
-            return flag ? ActionResultType.CONSUME : ActionResultType.PASS;
+            boolean flag = isKibble(stack) || isFood(stack);
+            return flag ? ActionResultType.SUCCESS : ActionResultType.PASS;
 
         } else {
-            if (!this.isTame() && isFood(stack)) {
-                if (!player.abilities.instabuild)
-                    stack.shrink(1);
+            if (this.isTame() && this.isOwnedBy(player)) {
+                if (isFood(stack) && this.getHealth() < this.getMaxHealth()) {
+                    this.usePlayerItem(player, stack);
+                    this.heal(1); //todo
+                    return ActionResultType.CONSUME;
+
+                } else if (isKibble(stack) && this.getAge() == 0 && this.canFallInLove()) {
+                    this.usePlayerItem(player, stack);
+                    this.setInLove(player);
+                    return ActionResultType.CONSUME;
+                }
+
+            } else if (isKibble(stack)) {
+                this.usePlayerItem(player, stack);
                 if (this.random.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
                     this.tame(player);
-                    this.navigation.stop();
-                    this.setTarget(null);
                     this.level.broadcastEntityEvent(this, (byte) 7);
                 } else
                     this.level.broadcastEntityEvent(this, (byte) 6);
 
-                return ActionResultType.SUCCESS;
+                return ActionResultType.CONSUME;
             }
 
-            return super.mobInteract(player, hand);
+            return ActionResultType.PASS;
         }
     }
 

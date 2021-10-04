@@ -25,4 +25,20 @@ public class EntityStats {
         this.size = size;
         this.variantCount = variantCount;
     }
+
+    public boolean isFood(Item stack) {
+        return this.diet.containsKey(stack.getItem());
+    }
+
+    public Item getKibble() {
+        return this.kibble;
+    }
+
+    public RangedInteger getLitterSize() {
+        return this.litterSize;
+    }
+
+    public int getVariantCount() {
+        return this.variantCount;
+    }
 }
