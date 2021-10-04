@@ -4,6 +4,17 @@
   "entity.zawa.common_hippopotamus": "Common Hippopotamus",
   "entity.zawa.grevys_zebra": "Grevy's Zebra",
 
+  "__comment": "Entity Variant Names",
+  "entity.zawa.koala_1": "Sydney",
+  "entity.zawa.koala_2": "Queensland",
+  "entity.zawa.koala_3": "Melbourne",
+  "entity.zawa.common_hippopotamus_1": "Hippopotamus_1",
+  "entity.zawa.common_hippopotamus_2": "Hippopotamus_2",
+  "entity.zawa.common_hippopotamus_3": "Hippopotamus_3",
+  "entity.zawa.grevys_zebra_1": "Zebra_1",
+  "entity.zawa.grevys_zebra_2": "Zebra_2",
+  "entity.zawa.grevys_zebra_3": "Zebra_3",
+
   "__comment": "Item Names",
   "item.zawa.koala_spawn_egg": "Koala Spawn Egg",
   "item.zawa.common_hippopotamus_spawn_egg": "Common Hippopotamus Spawn Egg",
@@ -11,6 +22,7 @@
   "item.zawa.carnivore_kibble": "Carnivore Kibble",
   "item.zawa.herbivore_kibble": "Herbivore Kibble",
   "item.zawa.insectivore_kibble": "Insectivore Kibble",
+  "item.zawa.omnivore_kibble": "Omnivore Kibble",
   "item.zawa.piscivore_kibble": "Piscivore Kibble",
   "item.zawa.shellfish_kibble": "Shellfish Kibble",
 
@@ -41,5 +53,13 @@
   "block.zawa.tiger_plush": "Tiger Plush",
   "block.zawa.turtle_plush": "Turtle Plush",
   "block.zawa.zebra_plush": "Zebra Plush",
-  "block.zawa.rainbow_zebra_plush": "Rainbow Zebra Plush"
+  "block.zawa.rainbow_zebra_plush": "Rainbow Zebra Plush",
+  "block.zawa.hay_browse": "Hay Browse",
+  "block.zawa.leaf_browse": "Leaf Browse",
+  "block.zawa.heat_lamp": "Heat Lamp",
+  "block.zawa.heat_rock": "Heat Rock",
+  "block.zawa.puzzle_feeder": "Puzzle Feeder",
+  "block.zawa.scratching_post": "Scratching Post",
+  "block.zawa.show_perch": "Show Perch",
+  "block.zawa.tire_swing": "Tire Swing"
 }

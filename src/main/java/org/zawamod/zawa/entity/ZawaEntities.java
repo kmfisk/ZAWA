@@ -130,7 +130,7 @@ public class ZawaEntities {
         }
 
         public RegistryObject<EntityType<T>> build(DeferredRegister<EntityType<?>> registrar, String name) {
-            final Item.Properties spawnEggBuilder = new Item.Properties().tab(ItemGroup.TAB_MISC);
+            final Item.Properties spawnEggBuilder = new Item.Properties().tab(Zawa.ENTITIES_GROUP);
             final EntityType.Builder<T> entityBuilder = EntityType.Builder.of(factory, category).sized(width, height);
             if (builderConsumer != null) builderConsumer.accept(entityBuilder);
             final EntityType<T> builtType = entityBuilder.build(Zawa.MOD_ID + "." + name);

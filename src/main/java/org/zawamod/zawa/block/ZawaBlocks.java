@@ -20,15 +20,15 @@ public class ZawaBlocks {
 
     public static final Map<String, RegistryObject<Block>> PLUSHIES = new HashMap<>();
 
-    public static final RegistryObject<Block> HAY_BROWSE = register("hay_browse", () -> new Block(AbstractBlock.Properties.of(Material.WOOD)));
-    public static final RegistryObject<Block> LEAF_BROWSE = register("leaf_browse", () -> new Block(AbstractBlock.Properties.of(Material.WOOD)));
-    public static final RegistryObject<Block> HEAT_LAMP = register("heat_lamp", () -> new Block(AbstractBlock.Properties.of(Material.WOOD)));
-    public static final RegistryObject<Block> HEAT_ROCK = register("heat_rock", () -> new Block(AbstractBlock.Properties.of(Material.WOOD)));
-    public static final RegistryObject<Block> PUZZLE_FEEDER = register("puzzle_feeder", () -> new Block(AbstractBlock.Properties.of(Material.WOOD)));
-    public static final RegistryObject<Block> SCRATCHING_POST = register("scratching_post", () -> new Block(AbstractBlock.Properties.of(Material.WOOD)));
-    public static final RegistryObject<Block> SHOW_PERCH = register("show_perch", () -> new Block(AbstractBlock.Properties.of(Material.WOOD)));
-    public static final RegistryObject<Block> TIRE_SWING = register("tire_swing", () -> new Block(AbstractBlock.Properties.of(Material.WOOD)));
-    public static final RegistryObject<Block> TIRE_SWING_HORIZONTAL = register("tire_swing_horizontal", () -> new Block(AbstractBlock.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> HAY_BROWSE = register("hay_browse", () -> new EnrichmentBlock(AbstractBlock.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> LEAF_BROWSE = register("leaf_browse", () -> new EnrichmentBlock(AbstractBlock.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> HEAT_LAMP = register("heat_lamp", () -> new EnrichmentBlock(AbstractBlock.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> HEAT_ROCK = register("heat_rock", () -> new EnrichmentBlock(AbstractBlock.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> PUZZLE_FEEDER = register("puzzle_feeder", () -> new EnrichmentBlock(AbstractBlock.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> SCRATCHING_POST = register("scratching_post", () -> new EnrichmentBlock(AbstractBlock.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> SHOW_PERCH = register("show_perch", () -> new EnrichmentBlock(AbstractBlock.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> TIRE_SWING = register("tire_swing", () -> new EnrichmentBlock(AbstractBlock.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> TIRE_SWING_HORIZONTAL = register("tire_swing_horizontal", () -> new EnrichmentBlock(AbstractBlock.Properties.of(Material.WOOD)));
 
     static {
         String[] plushies = new String[]{"eagle", "elephant", "flamingo", "giraffe", "gorilla", "grizzly", "kangaroo",
@@ -43,7 +43,7 @@ public class ZawaBlocks {
 
     private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> block) {
         RegistryObject<T> registryObject = REGISTRAR.register(name, block);
-        ZawaItems.REGISTRAR.register(name, () -> new BlockItem(registryObject.get(), new Item.Properties().tab(Zawa.GROUP)));
+        ZawaItems.REGISTRAR.register(name, () -> new BlockItem(registryObject.get(), new Item.Properties().tab(Zawa.ITEMS_GROUP)));
         return registryObject;
     }
 }

@@ -21,10 +21,22 @@ import org.zawamod.zawa.resources.EntityStatsManager;
 public class Zawa {
     public static final String MOD_ID = "zawa";
 
-    public static final ItemGroup GROUP = new ItemGroup(MOD_ID + ".tab") {
+    public static final ItemGroup ENTITIES_GROUP = new ItemGroup(MOD_ID + ".entities_group") {
+        @Override
+        public ItemStack makeIcon() {
+            return new ItemStack(ZawaItems.HERBIVORE_KIBBLE.get());
+        }
+    };
+    public static final ItemGroup ITEMS_GROUP = new ItemGroup(MOD_ID + ".items_group") {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(ZawaItems.CARNIVORE_KIBBLE.get());
+        }
+    };
+    public static final ItemGroup DECORATIONS_GROUP = new ItemGroup(MOD_ID + ".decorations_group") {
+        @Override
+        public ItemStack makeIcon() {
+            return new ItemStack(ZawaItems.INSECTIVORE_KIBBLE.get());
         }
     };
 

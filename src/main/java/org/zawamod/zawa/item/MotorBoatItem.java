@@ -24,7 +24,7 @@ public class MotorBoatItem extends Item {
     private static final Predicate<Entity> PLACEMENT_TESTER = EntityPredicates.NO_SPECTATORS.and(Entity::canBeCollidedWith);
 
     public MotorBoatItem() {
-        super(new Item.Properties().tab(Zawa.GROUP));
+        super(new Item.Properties().tab(Zawa.ITEMS_GROUP));
     }
 
     @Override
