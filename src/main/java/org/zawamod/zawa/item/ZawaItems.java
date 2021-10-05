@@ -21,6 +21,5 @@ public class ZawaItems {
 
     public static final RegistryObject<MotorBoatItem> MOTOR_BOAT = REGISTRAR.register("motor_boat", MotorBoatItem::new);
 
-//    public static final RegistryObject<Item> ANGELFISH_BUCKET = REGISTRAR.register("angelfish_bucket", () -> new FishBucketItem(ZawaEntities.ANGELFISH.get(), Fluids.WATER, (new Item.Properties()).stacksTo(1).tab(Zawa.ITEMS_GROUP)));
-
+    public static final RegistryObject<Item> ANGELFISH_BUCKET = REGISTRAR.register("angelfish_bucket", () -> new FishBucketItem(ZawaEntities.ANGELFISH, () -> Fluids.WATER, new Item.Properties().stacksTo(1).tab(Zawa.ITEMS_GROUP)));
 }

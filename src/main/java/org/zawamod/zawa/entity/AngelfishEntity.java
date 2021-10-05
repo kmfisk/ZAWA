@@ -3,7 +3,6 @@ package org.zawamod.zawa.entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.passive.fish.AbstractFishEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -22,7 +21,7 @@ public class AngelfishEntity extends ZawaAmbientFishEntity {
 
     @Override
     protected ItemStack getBucketItemStack() {
-        return new ItemStack(ZawaItems.PISCIVORE_KIBBLE.get());
+        return new ItemStack(ZawaItems.ANGELFISH_BUCKET.get());
     }
 
     @Override
