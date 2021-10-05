@@ -22,6 +22,7 @@ import net.minecraftforge.fml.common.thread.EffectiveSide;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.zawamod.zawa.Zawa;
+import org.zawamod.zawa.client.renderer.entity.AngelfishRenderer;
 import org.zawamod.zawa.client.renderer.entity.CommonHippopotamusRenderer;
 import org.zawamod.zawa.client.renderer.entity.GrevysZebraRenderer;
 import org.zawamod.zawa.client.renderer.entity.KoalaRenderer;
@@ -57,6 +58,12 @@ public class ZawaEntities {
             .size(2.0F, 2.0F)
 //            .spawn(new SpawnInfo(something, 3, 4, 10))
             .build(REGISTRAR, "grevys_zebra");
+
+    public static final RegistryObject<EntityType<AngelfishEntity>> ANGELFISH = new Builder<>(AngelfishEntity::new, EntityClassification.WATER_AMBIENT)
+            .attributes(AngelfishEntity::registerAngelfishAttributes)
+            .renderer(() -> AngelfishRenderer::new)
+            .size(0.5F, 0.5F)
+            .build(REGISTRAR, "angelfish");
 
     public static void registerAttributes(BiConsumer<EntityType<? extends LivingEntity>, AttributeModifierMap.MutableAttribute> register) {
         for (Tuple<RegistryObject<EntityType<? extends LivingEntity>>, Supplier<AttributeModifierMap.MutableAttribute>> attribute : ATTRIBUTES) {
