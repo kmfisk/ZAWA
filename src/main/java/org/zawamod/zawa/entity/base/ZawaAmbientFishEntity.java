@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.fish.AbstractFishEntity;
+import net.minecraft.entity.passive.fish.AbstractGroupFishEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -15,15 +16,11 @@ import org.zawamod.zawa.resources.EntityStatsManager;
 
 import javax.annotation.Nullable;
 
-public abstract class ZawaAmbientFishEntity extends AbstractFishEntity {
+public abstract class ZawaAmbientFishEntity extends AbstractGroupFishEntity {
     public static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(ZawaBaseEntity.class, DataSerializers.INT);
 
-    public ZawaAmbientFishEntity(EntityType<? extends AbstractFishEntity> type, World world) {
+    public ZawaAmbientFishEntity(EntityType<? extends AbstractGroupFishEntity> type, World world) {
         super(type, world);
-    }
-
-    @Override
-    protected void registerGoals() {
     }
 
     @Override

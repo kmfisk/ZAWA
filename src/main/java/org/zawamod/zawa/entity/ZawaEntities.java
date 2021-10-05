@@ -41,29 +41,13 @@ public class ZawaEntities {
     public static final DeferredRegister<EntityType<?>> REGISTRAR = DeferredRegister.create(ForgeRegistries.ENTITIES, Zawa.MOD_ID);
 
     public static final RegistryObject<EntityType<KoalaEntity>> KOALA = new Builder<>(KoalaEntity::new, EntityClassification.CREATURE)
-            .attributes(KoalaEntity::registerKoalaAttributes)
-            .renderer(() -> KoalaRenderer::new)
-            .size(0.7f, 0.7f)
-            .build(REGISTRAR, "koala");
-
+            .attributes(KoalaEntity::registerKoalaAttributes).renderer(() -> KoalaRenderer::new).size(0.7f, 0.7f).build(REGISTRAR, "koala");
     public static final RegistryObject<EntityType<CommonHippopotamusEntity>> COMMON_HIPPOPOTAMUS = new Builder<>(CommonHippopotamusEntity::new, EntityClassification.CREATURE)
-            .attributes(CommonHippopotamusEntity::registerHippoAttributes)
-            .renderer(() -> CommonHippopotamusRenderer::new)
-            .size(1.5F, 1.5F)
-            .build(REGISTRAR, "common_hippopotamus");
-
+            .attributes(CommonHippopotamusEntity::registerHippoAttributes).renderer(() -> CommonHippopotamusRenderer::new).size(1.5F, 1.5F).build(REGISTRAR, "common_hippopotamus");
     public static final RegistryObject<EntityType<GrevysZebraEntity>> GREVYS_ZEBRA = new Builder<>(GrevysZebraEntity::new, EntityClassification.CREATURE)
-            .attributes(GrevysZebraEntity::registerZebraAttributes)
-            .renderer(() -> GrevysZebraRenderer::new)
-            .size(2.0F, 2.0F)
-//            .spawn(new SpawnInfo(something, 3, 4, 10))
-            .build(REGISTRAR, "grevys_zebra");
-
+            .attributes(GrevysZebraEntity::registerZebraAttributes).renderer(() -> GrevysZebraRenderer::new).size(2.0F, 2.0F).build(REGISTRAR, "grevys_zebra");
     public static final RegistryObject<EntityType<AngelfishEntity>> ANGELFISH = new Builder<>(AngelfishEntity::new, EntityClassification.WATER_AMBIENT)
-            .attributes(AngelfishEntity::registerAngelfishAttributes)
-            .renderer(() -> AngelfishRenderer::new)
-            .size(0.5F, 0.5F)
-            .build(REGISTRAR, "angelfish");
+            .attributes(AngelfishEntity::registerAngelfishAttributes).renderer(() -> AngelfishRenderer::new).size(0.5F, 0.5F).build(REGISTRAR, "angelfish");
 
     public static void registerAttributes(BiConsumer<EntityType<? extends LivingEntity>, AttributeModifierMap.MutableAttribute> register) {
         for (Tuple<RegistryObject<EntityType<? extends LivingEntity>>, Supplier<AttributeModifierMap.MutableAttribute>> attribute : ATTRIBUTES) {

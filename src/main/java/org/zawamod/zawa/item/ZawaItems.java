@@ -1,10 +1,8 @@
 package org.zawamod.zawa.item;
 
-import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.FishBucketItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -23,6 +21,6 @@ public class ZawaItems {
 
     public static final RegistryObject<MotorBoatItem> MOTOR_BOAT = REGISTRAR.register("motor_boat", MotorBoatItem::new);
 
-    public static final RegistryObject<Item> ANGELFISH_BUCKET = REGISTRAR.register("angelfish_bucket", () -> new FishBucketItem(ZawaEntities.ANGELFISH.get(), Fluids.WATER, (new Item.Properties()).stacksTo(1).tab(Zawa.ENTITIES_GROUP)));
+//    public static final RegistryObject<Item> ANGELFISH_BUCKET = REGISTRAR.register("angelfish_bucket", () -> new FishBucketItem(ZawaEntities.ANGELFISH.get(), Fluids.WATER, (new Item.Properties()).stacksTo(1).tab(Zawa.ITEMS_GROUP)));
 
 }

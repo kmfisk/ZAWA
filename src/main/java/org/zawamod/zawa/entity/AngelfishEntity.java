@@ -12,7 +12,7 @@ import org.zawamod.zawa.entity.base.ZawaAmbientFishEntity;
 import org.zawamod.zawa.item.ZawaItems;
 
 public class AngelfishEntity extends ZawaAmbientFishEntity {
-    public AngelfishEntity(EntityType<? extends AbstractFishEntity> type, World world) {
+    public AngelfishEntity(EntityType<? extends ZawaAmbientFishEntity> type, World world) {
         super(type, world);
     }
 
@@ -22,7 +22,7 @@ public class AngelfishEntity extends ZawaAmbientFishEntity {
 
     @Override
     protected ItemStack getBucketItemStack() {
-        return new ItemStack(ZawaItems.ANGELFISH_BUCKET.get());
+        return new ItemStack(ZawaItems.PISCIVORE_KIBBLE.get());
     }
 
     @Override
