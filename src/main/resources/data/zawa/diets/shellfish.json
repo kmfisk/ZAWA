@@ -1,7 +1,7 @@
 {
-  "zawa:clam": "1",
-  "zawa:shrimp": "1",
-  "zawa:mussels": "1",
-  "zawa:crawfish": "1",
-  "zawa:crab": "1"
+  "zawa:clam": 1,
+  "zawa:shrimp": 1,
+  "zawa:mussels": 1,
+  "zawa:crawfish": 1,
+  "zawa:crab": 1
 }
