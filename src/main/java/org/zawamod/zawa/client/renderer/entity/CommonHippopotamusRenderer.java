@@ -5,10 +5,13 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.zawamod.zawa.Zawa;
 import org.zawamod.zawa.client.renderer.entity.model.CommonHippopotamusModel;
 import org.zawamod.zawa.entity.CommonHippopotamusEntity;
 
+@OnlyIn(Dist.CLIENT)
 public class CommonHippopotamusRenderer extends MobRenderer<CommonHippopotamusEntity, CommonHippopotamusModel> {
     public static final ResourceLocation[] TEXTURES = new ResourceLocation[]{
             new ResourceLocation(Zawa.MOD_ID, "textures/entity/common_hippopotamus/common_hippopotamus_1.png"),

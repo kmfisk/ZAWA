@@ -5,10 +5,13 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.zawamod.zawa.Zawa;
 import org.zawamod.zawa.client.renderer.entity.model.KoalaModel;
 import org.zawamod.zawa.entity.KoalaEntity;
 
+@OnlyIn(Dist.CLIENT)
 public class KoalaRenderer extends MobRenderer<KoalaEntity, KoalaModel> {
     //    public static final List<Tuple<ResourceLocation, ResourceLocation>> TEXTURES = new ArrayList<>();
     public static final ResourceLocation[] TEXTURES = new ResourceLocation[]{

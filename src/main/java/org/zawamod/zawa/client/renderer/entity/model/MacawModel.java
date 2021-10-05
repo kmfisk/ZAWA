@@ -2,11 +2,14 @@ package org.zawamod.zawa.client.renderer.entity.model;
 
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Macaw - fisk
  * Created using Tabula 7.1.0
  */
+@OnlyIn(Dist.CLIENT)
 public class MacawModel {
     public ModelRenderer Body;
     public ModelRenderer Neck;

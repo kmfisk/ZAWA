@@ -11,10 +11,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.zawamod.zawa.Zawa;
 import org.zawamod.zawa.client.renderer.entity.model.MotorBoatModel;
 import org.zawamod.zawa.entity.item.MotorBoatEntity;
 
+@OnlyIn(Dist.CLIENT)
 public class MotorBoatRenderer extends EntityRenderer<MotorBoatEntity> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(Zawa.MOD_ID, "textures/entity/motor_boat.png");
     protected final MotorBoatModel modelBoat = new MotorBoatModel();

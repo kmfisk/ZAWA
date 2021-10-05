@@ -4,8 +4,15 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.client.renderer.entity.model.SegmentedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.zawamod.zawa.entity.KoalaEntity;
 
+/**
+ * Koala - Mnesikos
+ * Created using Tabula 7.1.0
+ */
+@OnlyIn(Dist.CLIENT)
 public abstract class KoalaModel extends SegmentedModel<KoalaEntity> {
     public ModelRenderer body;
     public ModelRenderer belly;

@@ -3,8 +3,11 @@ package org.zawamod.zawa.client.renderer.entity.model;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.renderer.entity.model.SegmentedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.zawamod.zawa.entity.item.MotorBoatEntity;
 
+@OnlyIn(Dist.CLIENT)
 public class MotorBoatModel extends SegmentedModel<MotorBoatEntity> {
     public ModelRenderer boatSides3;
     public ModelRenderer boatSides2;

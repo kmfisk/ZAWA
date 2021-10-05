@@ -5,10 +5,13 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.zawamod.zawa.Zawa;
 import org.zawamod.zawa.client.renderer.entity.model.GrevysZebraModel;
 import org.zawamod.zawa.entity.GrevysZebraEntity;
 
+@OnlyIn(Dist.CLIENT)
 public class GrevysZebraRenderer extends MobRenderer<GrevysZebraEntity, GrevysZebraModel> {
     public static final ResourceLocation[] TEXTURES = new ResourceLocation[]{
             new ResourceLocation(Zawa.MOD_ID, "textures/entity/grevys_zebra/grevys_zebra_1.png"),
