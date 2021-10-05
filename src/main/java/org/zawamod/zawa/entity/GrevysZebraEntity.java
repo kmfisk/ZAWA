@@ -7,11 +7,9 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.FollowParentGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import org.zawamod.zawa.entity.base.BaseHerdingEntity;
-import org.zawamod.zawa.item.ZawaItems;
 
 import javax.annotation.Nullable;
 
@@ -29,11 +27,6 @@ public class GrevysZebraEntity extends BaseHerdingEntity {
         super.registerGoals();
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.25D));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-    }
-
-    @Override
-    public boolean isFood(ItemStack stack) {
-        return stack.getItem() == ZawaItems.HERBIVORE_KIBBLE.get();
     }
 
     @Nullable
