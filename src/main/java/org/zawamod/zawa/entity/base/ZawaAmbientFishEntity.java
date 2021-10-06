@@ -17,7 +17,7 @@ import org.zawamod.zawa.resources.EntityStatsManager;
 import javax.annotation.Nullable;
 
 public abstract class ZawaAmbientFishEntity extends AbstractGroupFishEntity {
-    public static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(ZawaBaseEntity.class, DataSerializers.INT);
+    public static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(ZawaAmbientFishEntity.class, DataSerializers.INT);
 
     public ZawaAmbientFishEntity(EntityType<? extends AbstractGroupFishEntity> type, World world) {
         super(type, world);
