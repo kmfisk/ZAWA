@@ -2,7 +2,7 @@
 	"ambientocclusion": false,
 	"textures": {
 		"0": "zawa:block/barrelfeeder_1",
-		"1": "zawa:block/zawaessentialsbirdhouse",
+		"1": "stripped_oak_log",
 		"particle": "zawa:block/barrelfeeder_1"
 	},
 	"elements": [

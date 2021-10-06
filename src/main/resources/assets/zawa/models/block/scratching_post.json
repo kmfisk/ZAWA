@@ -2,7 +2,7 @@
 	"ambientocclusion": false,
 	"textures": {
 		"0": "zawa:block/rope",
-		"1": "zawa:block/zawaessentialsbirdhouse",
+		"1": "block/stripped_oak_log",
 		"particle": "zawa:block/rope"
 	},
 	"elements": [
