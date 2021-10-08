@@ -3,19 +3,22 @@ package org.zawamod.zawa.item;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.FishBucketItem;
 import net.minecraft.item.Item;
+import net.minecraft.util.Util;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.zawamod.zawa.Zawa;
 import org.zawamod.zawa.entity.ZawaEntities;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ZawaItems {
     public static final DeferredRegister<Item> REGISTRAR = DeferredRegister.create(ForgeRegistries.ITEMS, Zawa.MOD_ID);
 
-    public static final RegistryObject<MotorBoatItem> MOTOR_BOAT = REGISTRAR.register("motor_boat", MotorBoatItem::new);
+    public static final RegistryObject<Item> MOTOR_BOAT = REGISTRAR.register("motor_boat", MotorBoatItem::new);
 
     // Kibbles
     public static final RegistryObject<Item> CARNIVORE_KIBBLE = REGISTRAR.register("carnivore_kibble", () -> new Item(new Item.Properties().tab(Zawa.ITEMS_GROUP)));
@@ -26,11 +29,47 @@ public class ZawaItems {
     public static final RegistryObject<Item> SHELLFISH_KIBBLE = REGISTRAR.register("shellfish_kibble", () -> new Item(new Item.Properties().tab(Zawa.ITEMS_GROUP)));
 
     // Ambient critters
-    public static final Map<String, RegistryObject<Item>> BUTTERFLIES = new HashMap<>();
-    public static final Map<String, RegistryObject<Item>> FISH = new HashMap<>();
-    public static final Map<String, RegistryObject<Item>> PRAYING_MANTISES = new HashMap<>();
-    public static final Map<String, RegistryObject<Item>> SCORPIONS = new HashMap<>();
-    public static final Map<String, RegistryObject<Item>> TARANTULAS = new HashMap<>();
+    public static final List<RegistryObject<Item>> BUTTERFLIES = Util.make(new ArrayList<>(), list -> {
+        for (String butterfly : new String[]{
+                "black_swallowtail", "blue_morpho", "cabbage_white", "checkered_white",
+                "cloudless_sulphur", "eastern_tiger_swallowtail", "green_hairstreak",
+                "monarch", "red_admiral", "tawny_emperor", "zebra_swallowtail"
+        })
+            list.add(REGISTRAR.register(butterfly + "_butterfly", () -> new Item(new Item.Properties().tab(Zawa.ITEMS_GROUP))));
+
+    });
+
+    public static final List<RegistryObject<Item>> FISH = Util.make(new ArrayList<>(), list -> {
+        for (String fish : new String[]{
+                "angelfish", "cichlid", "clownfish", "corydoras", "dottyback", "gramma"
+        })
+            list.add(REGISTRAR.register(fish, () -> new Item(new Item.Properties().tab(Zawa.ITEMS_GROUP))));
+    });
+
+    public static final List<RegistryObject<Item>> PRAYING_MANTISES = Util.make(new ArrayList<>(), list -> {
+        for (String prayingMantis : new String[]{
+                "african", "chinese", "devils_flower", "european", "ghost", "orchid"
+        })
+            list.add(REGISTRAR.register(prayingMantis + "_praying_mantis", () -> new Item(new Item.Properties().tab(Zawa.ITEMS_GROUP))));
+    });
+
+    public static final List<RegistryObject<Item>> SCORPIONS = Util.make(new ArrayList<>(), list -> {
+        for (String scorpion : new String[]{
+                "arizona_bark", "asian_forest", "common_yellow", "emperor",
+                "giant_hairy_desert", "northern", "red_claw"
+        })
+            list.add(REGISTRAR.register(scorpion + "_scorpion", () -> new Item(new Item.Properties().tab(Zawa.ITEMS_GROUP))));
+
+    });
+
+    public static final List<RegistryObject<Item>> TARANTULAS = Util.make(new ArrayList<>(), list -> {
+        for (String tarantula : new String[]{
+                "antilles_pinktoe", "brazilian_black", "chilean_rosehair", "cobalt_blue", "goliath_birdeater",
+                "green_bottle_blue", "king_baboon", "mexican_red_knee", "western_desert"
+        })
+            list.add(REGISTRAR.register(tarantula + "_tarantula", () -> new Item(new Item.Properties().tab(Zawa.ITEMS_GROUP))));
+    });
+
     public static final RegistryObject<Item> ANGELFISH_BUCKET = REGISTRAR.register("angelfish_bucket", () -> new FishBucketItem(ZawaEntities.ANGELFISH, () -> Fluids.WATER, new Item.Properties().stacksTo(1).tab(Zawa.ITEMS_GROUP)));
     public static final RegistryObject<Item> BROWN_RAT = REGISTRAR.register("brown_rat", () -> new Item(new Item.Properties().tab(Zawa.ITEMS_GROUP)));
     public static final RegistryObject<Item> CRAB = REGISTRAR.register("crab", () -> new Item(new Item.Properties().tab(Zawa.ITEMS_GROUP)));
@@ -58,30 +97,4 @@ public class ZawaItems {
     public static final RegistryObject<Item> LARGE_MEAT = REGISTRAR.register("large_meat", () -> new Item(new Item.Properties().tab(Zawa.ITEMS_GROUP)));
     public static final RegistryObject<Item> MEDIUM_MEAT = REGISTRAR.register("medium_meat", () -> new Item(new Item.Properties().tab(Zawa.ITEMS_GROUP)));
     public static final RegistryObject<Item> SMALL_MEAT = REGISTRAR.register("small_meat", () -> new Item(new Item.Properties().tab(Zawa.ITEMS_GROUP)));
-
-    static {
-        String[] butterflies = new String[]{"black_swallowtail", "blue_morpho", "cabbage_white", "checkered_white",
-                "cloudless_sulphur", "eastern_tiger_swallowtail", "green_hairstreak", "monarch", "red_admiral",
-                "tawny_emperor", "zebra_swallowtail"};
-        for (String butterfly : butterflies)
-            BUTTERFLIES.put(butterfly, REGISTRAR.register(butterfly + "_butterfly", () -> new Item(new Item.Properties().tab(Zawa.ITEMS_GROUP))));
-
-        String[] fish_list = new String[]{"angelfish", "cichlid", "clownfish", "corydoras", "dottyback", "gramma"};
-        for (String fish : fish_list)
-            FISH.put(fish, REGISTRAR.register(fish, () -> new Item(new Item.Properties().tab(Zawa.ITEMS_GROUP))));
-
-        String[] praying_mantises = new String[]{"african", "chinese", "devils_flower", "european", "ghost", "orchid"};
-        for (String praying_mantis : praying_mantises)
-            PRAYING_MANTISES.put(praying_mantis, REGISTRAR.register(praying_mantis + "_praying_mantis", () -> new Item(new Item.Properties().tab(Zawa.ITEMS_GROUP))));
-
-        String[] scorpions = new String[]{"arizona_bark", "asian_forest", "common_yellow", "emperor",
-                "giant_hairy_desert", "northern", "red_claw"};
-        for (String scorpion : scorpions)
-            SCORPIONS.put(scorpion, REGISTRAR.register(scorpion + "_scorpion", () -> new Item(new Item.Properties().tab(Zawa.ITEMS_GROUP))));
-
-        String[] tarantulas = new String[]{"antilles_pinktoe", "brazilian_black", "chilean_rosehair", "cobalt_blue",
-                "goliath_birdeater", "green_bottle_blue", "king_baboon", "mexican_red_knee", "western_desert"};
-        for (String tarantula : tarantulas)
-            TARANTULAS.put(tarantula, REGISTRAR.register(tarantula + "_tarantula", () -> new Item(new Item.Properties().tab(Zawa.ITEMS_GROUP))));
-    }
 }

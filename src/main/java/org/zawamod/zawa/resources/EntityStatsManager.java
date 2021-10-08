@@ -17,6 +17,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.zawamod.zawa.entity.stats.Enrichment;
 import org.zawamod.zawa.entity.stats.EntitySizeCategory;
 import org.zawamod.zawa.entity.stats.EntityStats;
 
@@ -70,23 +71,7 @@ public class EntityStatsManager extends JsonReloadListener {
                     throw new JsonSyntaxException("Excepted litter_size to be a JsonObject or Int, was " + JSONUtils.getType(litterSizeElement));
                 }
 
-                Set<Item> enrichmentItems = new HashSet<>();
-                JsonArray enrichmentItemsArray = JSONUtils.getAsJsonArray(json, "enrichment_items");
-                for (int i = 0; i < enrichmentItemsArray.size(); ++i) {
-                    ResourceLocation enrichmentItemId = new ResourceLocation(JSONUtils.convertToString(enrichmentItemsArray.get(i), "enrichment_items[" + i + "]"));
-                    Item enrichmentItem = ForgeRegistries.ITEMS.getValue(enrichmentItemId);
-                    if (enrichmentItem == null || enrichmentItem == Items.AIR) throw new JsonSyntaxException("Unknown item: " + enrichmentItemId);
-                    enrichmentItems.add(enrichmentItem);
-                }
-
-                Set<Block> enrichmentBlocks = new HashSet<>();
-                JsonArray enrichmentBlocksArray = JSONUtils.getAsJsonArray(json, "enrichment_blocks");
-                for (int i = 0; i < enrichmentBlocksArray.size(); ++i) {
-                    ResourceLocation enrichmentBlockId = new ResourceLocation(JSONUtils.convertToString(enrichmentBlocksArray.get(i), "enrichment_blocks[" + i + "]"));
-                    Block enrichmentBlock = ForgeRegistries.BLOCKS.getValue(enrichmentBlockId);
-                    if (enrichmentBlock == null || enrichmentBlock == Blocks.AIR) throw new JsonSyntaxException("Unknown block: " + enrichmentBlockId);
-                    enrichmentBlocks.add(enrichmentBlock);
-                }
+                Enrichment enrichment = Enrichment.deserialize(JSONUtils.getAsJsonObject(json, "enrichment"));
 
                 JsonElement sizeElement = json.get("size");
                 EntitySizeCategory size;
@@ -102,7 +87,7 @@ public class EntityStatsManager extends JsonReloadListener {
                     throw new JsonSyntaxException("Excepted size to be a String or Int, was " + JSONUtils.getType(sizeElement));
                 }
 
-                stats.put(type, new EntityStats(diet, kibble, litterSize, enrichmentItems, enrichmentBlocks, size, JSONUtils.getAsInt(json, "variant_count")));
+                stats.put(type, new EntityStats(diet, kibble, litterSize, enrichment, size, JSONUtils.getAsInt(json, "variant_count")));
             } catch (Exception exception) {
                 LOGGER.error("Failed to load stats for entity '" + entry.getKey() + "'", exception);
             }
