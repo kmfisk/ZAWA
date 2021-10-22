@@ -64,6 +64,13 @@ public class GrevysZebraModel extends SegmentedModel<GrevysZebraEntity> {
         this.Head.yRot = netHeadYaw * ((float) Math.PI / 180F) / 2F;
     }
 
+    @Override
+    public void prepareMobModel(GrevysZebraEntity zebra, float speed, float walkSpeed, float f4) {
+        super.prepareMobModel(zebra, speed, walkSpeed, f4);
+        this.Head.y += zebra.getHeadEatPositionScale(f4) * 9.0F; // todo
+        this.Head.xRot = zebra.getHeadEatAngleScale(f4);
+    }
+
     public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.xRot = x;
         modelRenderer.yRot = y;
