@@ -1,6 +1,7 @@
 package org.zawamod.zawa.entity.stats;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.ObjectSet;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.RangedInteger;
@@ -22,6 +23,10 @@ public class EntityStats {
         this.enrichment = enrichment;
         this.size = size;
         this.variantCount = variantCount;
+    }
+
+    public ObjectSet<Item> getDietItems() {
+        return this.diet.keySet();
     }
 
     public boolean isFood(Item stack) {

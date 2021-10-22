@@ -10,6 +10,7 @@ import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
@@ -25,10 +26,12 @@ import net.minecraft.world.server.ServerWorld;
 import org.zawamod.zawa.resources.EntityStatsManager;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 public abstract class ZawaBaseEntity extends TameableEntity {
     public static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(ZawaBaseEntity.class, DataSerializers.INT);
     public static final DataParameter<Boolean> GENDER = EntityDataManager.defineId(ZawaBaseEntity.class, DataSerializers.BOOLEAN);
+    public static final DataParameter<ItemStack> FAVORITE_FOOD = EntityDataManager.defineId(ZawaBaseEntity.class, DataSerializers.ITEM_STACK);
 
     public ZawaBaseEntity(EntityType<? extends TameableEntity> type, World world) {
         super(type, world);
@@ -48,6 +51,7 @@ public abstract class ZawaBaseEntity extends TameableEntity {
         super.defineSynchedData();
         this.entityData.define(VARIANT, 0);
         this.entityData.define(GENDER, false);
+        this.entityData.define(FAVORITE_FOOD, ItemStack.EMPTY);
     }
 
     @Override
@@ -55,6 +59,8 @@ public abstract class ZawaBaseEntity extends TameableEntity {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setMale(random.nextBoolean());
         this.setVariant(random.nextInt(this.maxVariants()));
+        Optional<Item> dietItem = EntityStatsManager.INSTANCE.getStats(this).getDietItems().stream().findAny();
+        this.setFavoriteFood(dietItem.map(Item::getDefaultInstance).orElse(ItemStack.EMPTY));
         return spawnDataIn;
     }
 
@@ -82,11 +88,20 @@ public abstract class ZawaBaseEntity extends TameableEntity {
         this.entityData.set(GENDER, isMale);
     }
 
+    public ItemStack getFavoriteFood() {
+        return this.entityData.get(FAVORITE_FOOD);
+    }
+
+    public void setFavoriteFood(ItemStack itemStack) {
+        this.entityData.set(FAVORITE_FOOD, itemStack);
+    }
+
     @Override
     public void addAdditionalSaveData(CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("Variant", this.getVariant());
         compound.putBoolean("Gender", this.getGender().toBool());
+        compound.put("FavoriteFood", this.getFavoriteFood().save(new CompoundNBT()));
     }
 
     @Override
@@ -94,6 +109,13 @@ public abstract class ZawaBaseEntity extends TameableEntity {
         super.readAdditionalSaveData(compound);
         this.setVariant(compound.getInt("Variant"));
         this.setMale(compound.getBoolean("Gender"));
+        CompoundNBT favoriteFoodNBT = compound.getCompound("FavoriteFood");
+        if (favoriteFoodNBT != null && !favoriteFoodNBT.isEmpty()) {
+            ItemStack itemstack = ItemStack.of(favoriteFoodNBT);
+            if (itemstack.isEmpty())
+                LOGGER.warn("Unable to load FavoriteFood item from: {}", favoriteFoodNBT);
+            this.setFavoriteFood(itemstack);
+        }
     }
 
     @Override
